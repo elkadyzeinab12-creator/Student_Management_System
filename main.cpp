@@ -10,7 +10,7 @@ vector<Course> all_courses;
 
 void menu_loop () {
     cout<<"____________________________________________________________________________\n";
-    cout <<"Welcome to our final project\n";
+    cout <<"                        Welcome to our final project                       \n";
     cout<<"____________________________________________________________________________\n";
     cout<<"Main Menu:\n";
     cout << "1. Add new student\n";
@@ -51,7 +51,7 @@ void data_base() {
 
         int numof_courses;
         data_base>>numof_courses;
-        for (int j = 0; j < numof_courses; j++) {
+        for (int i = 0; i < numof_courses; i++) {
             Course course_code;
             data_base>>course_code.title;
             data_base>>course_code.credit_hours;
