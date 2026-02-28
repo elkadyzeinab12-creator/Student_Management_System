@@ -14,6 +14,12 @@ void addStudent(vector<Student>& students) {
     cout << "Enter ID: ";
     cin >> new_Student.id;
 
+    while (new_Student.id.length() > 14) { //to ensure id doesn't exceed 14 char
+        cout << "Error <ID must not exceed 14 characters !>\n";
+        cout << "Enter a valid ID: ";
+        cin >> new_Student.id;
+    }
+
     if (findStudentById(students, new_Student.id) != nullptr) {//if user give ID already exists
         cout << " Error: A student with ID ( " << new_Student.id << " ) already exists !";
         return;
