@@ -47,13 +47,8 @@ void addStudent(vector<Student>& students) {
 //------------------find student && tell user if he is not found----------------
 
 Student* findStudentById(vector<Student>& students, const string& id) {
-
-    for (size_t i = 0; i < students.size(); i++) {
-
-        if (students[i].id == id) {
-            return &students[i];
-        }
-
-    }
+    for (auto& s : students)
+        if (s.id == id)
+            return &s;
     return nullptr;
 }
