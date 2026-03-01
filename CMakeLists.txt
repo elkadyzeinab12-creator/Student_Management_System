@@ -9,4 +9,4 @@ add_executable(project main.cpp
         storage.h
         utils.h
         student.cpp
-)
+        Storage.cpp)

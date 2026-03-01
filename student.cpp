@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #include "student.h"
+#define GREEN "\033[32m"
 #include "course.h"
 
 using namespace std;
@@ -9,7 +10,6 @@ void addStudent(vector<Student>& students) {
     Student new_Student;
 
     cout << "----------------------------<ADD NEW STUDENT>-------------------------------\n";
-
 
     cout << "Enter ID: ";
     cin >> new_Student.id;
@@ -39,16 +39,32 @@ void addStudent(vector<Student>& students) {
 
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
+    cout << "Enter Number of Enrolled courses: " ;
+    int numEnrolled;
+    cin >> numEnrolled;
+    for (int i = 0; i < numEnrolled; i++) {
+        cout << "Enter Course code : ";
+        string course_code;
+        cin>> course_code ;
+        new_Student.enrolledCourseIds.push_back(course_code);
+    }
 
     students.push_back(new_Student);
     cout << "____________________________________________________________________________\n" ;
-    cout << "                       STUDENT REGISTERED SUCCESSFULLY                       "<<'\n' ;
+    cout <<GREEN<< "                       STUDENT REGISTERED SUCCESSFULLY                       "<<'\n' ;
     cout << "____________________________________________________________________________\n";
     cout << "  Name: " <<  new_Student.name <<  endl;
     cout << "  ID  : " << new_Student.id << endl;
     cout << "  Year: " << new_Student.year << endl;
+    cout << "  Number of Enrolled courses: " << new_Student.enrolledCourseIds.size() << endl;
+    for (int i = 0; i < new_Student.enrolledCourseIds.size(); i++)
+        cout <<"  "<< i+1<<"-"<< new_Student.enrolledCourseIds[i] << endl;
+
     cout << "____________________________________________________________________________\n";
+
+
 }
+
 
 //------------------find student && tell user if he is not found----------------
 
