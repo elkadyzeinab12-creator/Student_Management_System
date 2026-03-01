@@ -64,11 +64,12 @@ void data_base() {
         for (int j = 0; j < numof_courses; j++) {
             data_base >> ws;
             Course course_code;
+            getline(data_base,course_code.id);
             getline(data_base,course_code.title);
             data_base>>course_code.credit_hours;
             int number_of_gpa;
             data_base>>number_of_gpa;
-            for (int j = 0; j < number_of_gpa; j++) {
+            for (int k = 0; k < number_of_gpa; k++) {
                 string student_id;
                 double student_gpa;
                 data_base>>student_id>>student_gpa;

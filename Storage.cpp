@@ -33,10 +33,10 @@ void saveDatabase(const std::vector<Student>& students,
 
             saveDatabase<<courses.size()<<endl;
             for (int i = 0; i < courses.size(); i++) {
+                saveDatabase<<courses[i].id<<endl;
                 saveDatabase<<courses[i].title<<endl;
                 saveDatabase<<courses[i].credit_hours<<endl;
-
-                saveDatabase<<courses[i].grades.size()<<endl;
+                saveDatabase<<(int)courses[i].grades.size()<<endl;
 
                 for (int j = 0; j <courses[i].grades.size() ; j++) {
                     saveDatabase<<courses[i].grades[j].first<<" "<<courses[i].grades[j].second<<endl;
