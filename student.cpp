@@ -14,10 +14,26 @@ void addStudent(vector<Student>& students) {
     cout << "Enter ID: ";
     cin >> new_Student.id;
 
-    while (new_Student.id.length() > 14) { //to ensure id doesn't exceed 14 char
-        cout << "Error <ID must not exceed 14 characters !>\n";
-        cout << "Enter a valid ID: ";
-        cin >> new_Student.id;
+    bool validID = false;
+    while (!validID){
+        validID = true;
+        if (new_Student.id.length() != 14){
+            cout << "Error <ID must be 14 numbers!>\n";
+            validID = false;
+        }
+        else {
+            for (char c : new_Student.id){
+                if (!isdigit(c)) {
+                    cout << "Error <ID must contain numbers only!>\n";
+                    validID = false;
+                    break;
+                }
+            }
+        }
+        if (!validID){
+            cout << "Enter a valid ID: ";
+            cin >> new_Student.id;
+        }
     }
 
     if (findStudentById(students, new_Student.id) != nullptr) {//if user give ID already exists
@@ -140,5 +156,5 @@ void editStudent(vector<Student>& students) {
         }
     } while (choice != 3);
 }
-//---------------------------------Calculate GPA----------------------------------
+//----------------------------------Calculate GPA-----------------------------------
 
