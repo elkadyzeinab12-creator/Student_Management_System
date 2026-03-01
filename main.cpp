@@ -1,8 +1,8 @@
+#define _HAS_STD_BYTE 0
 #include <bits/stdc++.h>
 #include "student.h"
 #include "course.h"
 #include <ranges>
-
 #include "storage.h"
 #ifdef _WIN32
 #include <windows.h>
@@ -25,13 +25,14 @@ void menu_loop () {
     cout << "2. Delete student\n";
     cout << "3. View student\n";
     cout << "4. View all students\n";
+    cout << "5. Edit student data\n";
     cout << "0. Exit\n"<<RESET;
     cout << "Enter your choice : ";
     }
 
 void data_base() {
     fstream data_base;
-    data_base.open("G:/ICPC/project/cms_db.txt", ios::in);
+    data_base.open("cms_db.txt", ios::in);
      if (!data_base)
         throw runtime_error("File not found!");
 
@@ -95,14 +96,24 @@ void run_menuLoop() {
                break;
             case 2:
                 //delete
+                deleteStudent(all_students);
                 break;
-            case 3:
+            case 3: {
                 // or search by id
-                cout<<findStudentById<<"\n";
+                cout<<"Enter ID: ";
+                string ID;
+                cin>>ID;
+                cout<<findStudentById(all_students,ID)<<"\n";
+            }
                 break;
             case 4:
               //  view all students
+
               break;
+            case 5:
+                //edit student data
+                editStudent(all_students);
+                break;
             case 0: cout << "Exiting...\n";
                 break;
             default:

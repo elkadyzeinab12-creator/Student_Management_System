@@ -1,6 +1,5 @@
 #ifndef studenth
 #define studenth
-
 #include <string>
 #include <vector>
 
@@ -12,6 +11,9 @@ struct Student {
 };
 
 void addStudent(std::vector<Student>& students);
+void editStudent(std::vector<Student>& students);
+void deleteStudent(std::vector<Student>& students);
+void viewAllStudents(std::vector<Student>& students);
 Student* findStudentById(std::vector<Student>& students, const std::string& id);
 void printStudentGPA(std::vector<Student>& students,
                      std::vector<class Course>& courses);

@@ -1,3 +1,4 @@
+#define _HAS_STD_BYTE 0
 #include <bits/stdc++.h>
 #include "student.h"
 #define GREEN "\033[32m"
@@ -10,7 +11,7 @@ void saveDatabase(const std::vector<Student>& students,
                   const std::string& filename){
 
         fstream saveDatabase;
-        saveDatabase.open("G:/ICPC/project/cms_db.txt", ios::out);//write
+        saveDatabase.open("cms_db.txt", ios::out);//write
 
         if (!saveDatabase)
             throw runtime_error("Could not open file for saving new data");
