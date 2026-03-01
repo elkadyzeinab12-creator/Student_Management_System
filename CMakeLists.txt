@@ -7,4 +7,6 @@ add_executable(project main.cpp
         student.h
         course.h
         storage.h
-        utils.h)
+        utils.h
+        student.cpp
+        Storage.cpp)
