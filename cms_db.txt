@@ -103,16 +103,14 @@ SWE201
 CS102
 MATH202
 12345678912345
-Zein El-fayed
+Zein El-FAYED
+4
+0
+78563412891234
+MOHAMED ABUTRIKA
 5
 0
 9
-abdulaziez 3ziez
-4
-2
-cc9
-pro102
-8
 CS101
 Intro to Computer Science
 3
@@ -188,3 +186,7 @@ Artificial Intelligence
 30306066789012 88.5
 30311111234567 96
 30312122345678 85
+KP78
+How to tehped sah?
+4
+0

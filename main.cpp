@@ -2,6 +2,7 @@
 #include <bits/stdc++.h>
 #include "student.h"
 #include "course.h"
+#include "utils.h"
 #include <ranges>
 #include "storage.h"
 #ifdef _WIN32
@@ -13,9 +14,13 @@ using namespace std;
 #define BLUE "\033[34m"
 #define GREEN "\033[32m"
 #define RESET   "\033[0m"
+#define PURPLE "\033[35m"
+#define LIGHT_PURPLE "\033[1;35m"
+#define cyan "\033[36m"
 
 vector<Student> all_students ;
 vector<Course> all_courses;
+
 
 void menu_loop () {
     cout <<BLUE<<"Welcome to our final project\n";
@@ -26,63 +31,12 @@ void menu_loop () {
     cout << "3. View student\n";
     cout << "4. View all students\n";
     cout << "5. Edit student data\n";
+    cout << "6. Add new Course\n";
+    cout << "7. View Course data\n";
     cout << "0. Exit\n"<<RESET;
     cout << "Enter your choice : ";
     }
 
-void data_base() {
-    fstream data_base;
-    data_base.open("cms_db.txt", ios::in);
-     if (!data_base)
-        throw runtime_error("File not found!");
-
-    if (data_base.is_open()) {
-
-        int students_number;
-        data_base>>students_number;
-
-        for ( int i = 0 ; i < students_number; i++ ) {
-            Student student;
-
-            data_base>>student.id;
-            data_base.ignore();
-          getline(data_base,student.name)  ;
-            data_base>>student.year;
-
-               int number_of_courses;
-            data_base>>number_of_courses;
-            for (int j = 0; j < number_of_courses; j++) {
-                string course;
-                data_base>>course;
-                // add vec for student
-                student.enrolledCourseIds.push_back(course);
-            }
-            all_students.push_back(student);
-        }
-        int numof_courses;
-        data_base>>numof_courses;
-        // data_base.ignore();
-        for (int j = 0; j < numof_courses; j++) {
-            data_base >> ws;
-            Course course_code;
-            getline(data_base,course_code.id);
-            getline(data_base,course_code.title);
-            data_base>>course_code.credit_hours;
-            int number_of_gpa;
-            data_base>>number_of_gpa;
-            for (int k = 0; k < number_of_gpa; k++) {
-                string student_id;
-                double student_gpa;
-                data_base>>student_id>>student_gpa;
-                course_code.grades.push_back({student_id , student_gpa});
-            }
-            // data_base.ignore();
-            all_courses.push_back(course_code);
-        }
-    data_base.close();
-    }
-
-}
 
 void run_menuLoop() {
     ll choice=-1;
@@ -99,15 +53,12 @@ void run_menuLoop() {
                 deleteStudent(all_students);
                 break;
             case 3: {
-                // or search by id
-                cout<<"Enter ID: ";
-                string ID;
-                cin>>ID;
-                Student* ptr = findStudentById(all_students, ID);
+                //  search student by id
+                Student* ptr = findStudentById(all_students, getStringInput("Enter Student ID: "));
                 if (ptr != nullptr) {
-                    cout << "Student Name: " << ptr->name << "\n";
+                    cout << "Student Name: " <<PURPLE<< ptr->name << "\n"<<RESET;
                 } else {
-                    cout << "Error: Student not found!\n";
+                    cout <<red<< "Error: Student not found!\n"<<RESET;
                 }
             }
                 break;
@@ -118,6 +69,19 @@ void run_menuLoop() {
             case 5:
                 //edit student data
                 editStudent(all_students);
+                break;
+            case 6:
+                // add course
+                addCourse(all_courses);
+                break;
+            case 7: {
+                // search course data
+                Course* ptr = findCourseById(all_courses,getStringInput("Enter course ID : "));
+                if (ptr != nullptr)
+                    cout<<"Course name : "<<PURPLE<< ptr->title<< "\n"<<RESET;
+
+                else  cout <<red<< "Error: Course not found!\n"<<RESET;
+            }
                 break;
             case 0: cout << "Exiting...\n";
                 break;
@@ -140,7 +104,7 @@ int main() {
 
 
     try {
-        data_base();
+        loadDatabase(all_students,all_courses,"cms_db.txt");
         run_menuLoop();
         saveDatabase(all_students,all_courses,"cms_db.txt");
     }

@@ -6,6 +6,7 @@
 #include "storage.h"
 using namespace std;
 
+
 void saveDatabase(const std::vector<Student>& students,
                   const std::vector<Course>& courses,
                   const std::string& filename){
@@ -49,3 +50,60 @@ void saveDatabase(const std::vector<Student>& students,
         }
 
     }
+
+//Load data base
+void loadDatabase(std::vector<Student>& students,
+                  std::vector<Course>& courses,
+                  const std::string& filename) {
+    fstream data_base;
+    data_base.open("cms_db.txt", ios::in);
+    if (!data_base)
+        throw runtime_error("File not found!");
+
+    if (data_base.is_open()) {
+
+        int students_number;
+        data_base>>students_number;
+
+        for ( int i = 0 ; i < students_number; i++ ) {
+            Student student;
+
+            data_base>>student.id;
+            data_base.ignore();
+            getline(data_base,student.name)  ;
+            data_base>>student.year;
+
+            int number_of_courses;
+            data_base>>number_of_courses;
+            for (int j = 0; j < number_of_courses; j++) {
+                string course;
+                data_base>>course;
+                // add vec for student
+                student.enrolledCourseIds.push_back(course);
+            }
+            students.push_back(student);
+        }
+        int numof_courses;
+        data_base>>numof_courses;
+        // data_base.ignore();
+        for (int j = 0; j < numof_courses; j++) {
+            data_base >> ws;
+            Course course_code;
+            getline(data_base,course_code.id);
+            getline(data_base,course_code.title);
+            data_base>>course_code.credit_hours;
+            int number_of_gpa;
+            data_base>>number_of_gpa;
+            for (int k = 0; k < number_of_gpa; k++) {
+                string student_id;
+                double student_gpa;
+                data_base>>student_id>>student_gpa;
+                course_code.grades.push_back({student_id , student_gpa});
+            }
+            // data_base.ignore();
+           courses.push_back(course_code);
+        }
+        data_base.close();
+    }
+
+}
