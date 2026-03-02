@@ -14,7 +14,7 @@ void saveDatabase(const std::vector<Student>& students,
         saveDatabase.open("cms_db.txt", ios::out);//write
 
         if (!saveDatabase)
-            throw runtime_error("Ccould not open file for saving new data");
+            throw runtime_error("Could not open file for saving new data");
 
         if (saveDatabase.is_open()) {
 

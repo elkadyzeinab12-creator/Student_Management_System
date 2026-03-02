@@ -12,7 +12,6 @@ using namespace std;
 void addStudent(vector<Student>& students) {
 
     Student new_Student;
-
     cout << "----------------------------<ADD NEW STUDENT>-------------------------------\n";
 
     cout << "Enter ID: ";

@@ -103,7 +103,12 @@ void run_menuLoop() {
                 cout<<"Enter ID: ";
                 string ID;
                 cin>>ID;
-                cout<<findStudentById(all_students,ID)<<"\n";
+                Student* ptr = findStudentById(all_students, ID);
+                if (ptr != nullptr) {
+                    cout << "Student Name: " << ptr->name << "\n";
+                } else {
+                    cout << "Error: Student not found!\n";
+                }
             }
                 break;
             case 4:
