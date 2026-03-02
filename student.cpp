@@ -1,11 +1,7 @@
-#define _HAS_STD_BYTE 0
 #include <bits/stdc++.h>
 #include "student.h"
-#define red "\033[1;31m"
-#define BLUE "\033[34m"
 #define GREEN "\033[32m"
-#define RESET   "\033[0m"
-
+#include "course.h"
 
 using namespace std;
 
@@ -21,13 +17,13 @@ void addStudent(vector<Student>& students) {
     while (!validID){
         validID = true;
         if (new_Student.id.length() != 14){
-            cout <<red<< "Error <ID must be 14 numbers!>\n"<<RESET;
+            cout << "Error <ID must be 14 numbers!>\n";
             validID = false;
         }
         else {
             for (char c : new_Student.id){
                 if (!isdigit(c)) {
-                    cout << red<<"Error <ID must contain numbers only!>\n"<<RESET;
+                    cout << "Error <ID must contain numbers only!>\n";
                     validID = false;
                     break;
                 }
@@ -40,7 +36,7 @@ void addStudent(vector<Student>& students) {
     }
 
     if (findStudentById(students, new_Student.id) != nullptr) {//if user give ID already exists
-        cout <<red<< " Error: A student with ID ( " << new_Student.id << " ) already exists !"<<RESET<<endl;
+        cout << " Error: A student with ID ( " << new_Student.id << " ) already exists !";
         return;
     }
 
@@ -52,7 +48,7 @@ void addStudent(vector<Student>& students) {
     cout << "Enter Academic Year: ";
     while (!(cin >> new_Student.year)) { // if the user give input other than numbers
 
-        cout <<red<< "Invalid input ! \n"<<RESET<<"Please , enter a number for Year: ";
+        cout << "Invalid input ! \n"<<"Please , enter a number for Year: ";
 
         cin.clear();
 
@@ -84,6 +80,7 @@ void addStudent(vector<Student>& students) {
 
 }
 
+
 //------------------find student && tell user if he is not found----------------
 
 Student* findStudentById(vector<Student>& students, const string& id) {
@@ -101,10 +98,10 @@ void deleteStudent(vector<Student>& students) {
     if (studentPtr != nullptr) {
         students.erase(students.begin() + (studentPtr - &students[0]));//to get index and do erase
         cout << "_____________________________________________________________________________\n";
-        cout <<GREEN<< "                       STUDENT DELETED SUCCESSFULLY                        \n"<<RESET;
+        cout << "                       STUDENT DELETED SUCCESSFULLY                        \n";
         cout << "_____________________________________________________________________________\n";
     }else {
-        cout <<red<< "Error: Student with ID ( " << id << " ) was not found!\n"<<RESET;
+        cout << "Error: Student with ID ( " << id << " ) was not found!\n";
     }
 }
 //----------------------------------Edit student info-------------------------------
@@ -114,7 +111,7 @@ void editStudent(vector<Student>& students) {
     cin >> id;
     Student* sPtr = findStudentById(students, id);
     if (sPtr == nullptr) {
-        cout <<red<< " Error: Student with ID ( " << id << " ) was not found!\n"<<RESET;
+        cout << " Error: Student with ID ( " << id << " ) was not found!\n";
         return;
     }
     int choice;
@@ -127,7 +124,7 @@ void editStudent(vector<Student>& students) {
         cout << "3. Save & Exit\n";
         cout << "Enter your choice: ";
         while (!(cin >> choice)) {
-            cout <<red<< "Invalid input! Please enter a number (1-3): "<<RESET;
+            cout << "Invalid input! Please enter a number (1-3): ";
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
         }
@@ -136,25 +133,25 @@ void editStudent(vector<Student>& students) {
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout << "Enter New Name: ";
                 getline(cin, sPtr->name);
-                cout <<GREEN<< "Name updated successfully!\n"<<RESET;
+                cout << "Name updated successfully!\n";
                 break;
             case 2:
                 cout << "Enter New Academic Year: ";
                 while (!(cin >> sPtr->year)) {
-                    cout << red<<"Invalid! Please enter a number for Year: "<<RESET;
+                    cout << "Invalid! Please enter a number for Year: ";
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 }
-                cout << GREEN<<"Year updated successfully!\n"<<RESET;
+                cout << "Year updated successfully!\n";
                 break;
             case 3:
                 cout << "____________________________________________________________________\n";
-                cout <<GREEN<< "                       CHANGES SAVED SUCCESSFULLY                   \n";
-                cout << "____________________________________________________________________\n"<<RESET;
+                cout << "                       CHANGES SAVED SUCCESSFULLY                   \n";
+                cout << "____________________________________________________________________\n";
                 break;
 
             default:
-                cout <<red<< "Invalid choice! Please select 1, 2 or 3\n"<<RESET;
+                cout << "Invalid choice! Please select 1, 2 or 3\n";
         }
     } while (choice != 3);
 }
