@@ -10,7 +10,7 @@ void addStudent(vector<Student>& students) {
     Student new_Student;
     cout << "----------------------------<ADD NEW STUDENT>-------------------------------\n";
 
-    cout << "Enter ID: ";
+    cout << "Enter ID (14 digits): ";
     cin >> new_Student.id;
 
     bool validID = false;

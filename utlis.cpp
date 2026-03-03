@@ -9,7 +9,7 @@ int getIntInput(const std::string& prompt) {
     while (true) {
         cout << prompt;
         if (cin >> value) return value;
-        cout<<red<<"Invalid input, please try Enter anumber\n"<<RESET;
+        cout<<red<<"Invalid input, please try Enter a number\n"<<RESET;
         cin.clear();
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
