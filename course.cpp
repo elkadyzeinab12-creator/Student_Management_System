@@ -120,7 +120,7 @@ void printCourseReport(vector<Course>& courses, vector<Student>& students) {
         for (const auto& grade : courseptr->grades) {
             Student* studentptr = findStudentById(students, grade.first);
 
-            cout <<left<<setw(25)<<studentptr->name <<setw(15)<< grade.first<<"=="<< grade.second <<'\n';
+            cout <<left<<setw(25)<<studentptr->name <<setw(15)<< grade.first<< grade.second <<'\n';
             sum += grade.second;
         }
         double average = sum / courseptr->grades.size();
