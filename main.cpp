@@ -3,7 +3,6 @@
 #include "student.h"
 #include "course.h"
 #include "utils.h"
-#include <ranges>
 #include "storage.h"
 #ifdef _WIN32
 #include <windows.h>
@@ -23,20 +22,34 @@ vector<Course> all_courses;
 
 
 void menu_loop () {
-    cout <<BLUE<<"Welcome to our final project\n";
+    cout<<BLUE<<"____________________________________________________________________________\n";
+    cout <<"Welcome to our final project\n";
     cout<<"____________________________________________________________________________\n";
     cout<<"Main Menu:\n";
-    cout << "1. Add new student\n";
-    cout << "2. Delete student\n";
-    cout << "3. View student\n";
-    cout << "4. View all students\n";
-    cout << "5. Edit student data\n";
-    cout << "6. Add new Course\n";
-    cout << "7. View Course data\n";
+    cout << "1. Add new student\n";//done
+    cout << "2. Delete student\n";//done
+    cout << "3. Find student \n";//done
+    cout << "4. View Student Report\n";
+    cout << "5. View all students\n";
+    cout << "6. Edit student data\n";//done
+    cout << "7. Record student in a course\n";//done
+    cout << "8. Add new Course\n";//done
+    cout << "9.  Find Course\n";//done
+    cout << "10. View Course Report\n";//done
+    cout << "11. View all Courses\n";
+    cout << "12. Edit Course data\n";
+    cout << "13. delete course\n";
+    cout << "14. Export Course Report to CSV\n";//done "still avrage, highst and lowest grade and student number"
+    cout << "15. Export Student Report to CSV\n";
     cout << "0. Exit\n"<<RESET;
     cout << "Enter your choice : ";
     }
 
+void isCourseFound() {
+    for (auto& c : all_courses) {
+       exportCourseCSV(&c,all_students);
+        }
+}
 
 void run_menuLoop() {
     ll choice=-1;
@@ -45,11 +58,11 @@ void run_menuLoop() {
         cin>>choice;
         switch (choice) {
             case 1:
-                //add
+                //add student
                 addStudent(all_students);
                break;
             case 2:
-                //delete
+                //delete tudent
                 deleteStudent(all_students, all_courses);
                 break;
             case 3: {
@@ -63,18 +76,26 @@ void run_menuLoop() {
             }
                 break;
             case 4:
-              //  view all students
+              //  view  student report
 
               break;
             case 5:
+                // view all students
+
+                break;
+            case 6:
                 //edit student data
                 editStudent(all_students);
                 break;
-            case 6:
+            case 7:
+                //record student to course
+                 recordGrade(all_courses, all_students);
+                break;
+            case 8:
                 // add course
                 addCourse(all_courses);
                 break;
-            case 7: {
+            case 9: {
                 // search course data
                 Course* ptr = findCourseById(all_courses,getStringInput("Enter course ID : "));
                 if (ptr != nullptr)
@@ -83,17 +104,34 @@ void run_menuLoop() {
                 else  cout <<red<< "Error: Course not found!\n"<<RESET;
             }
                 break;
+            case 10:
+                printCourseReport(all_courses, all_students);
+                break;
+            case 11:
+                //view all courses
+                break;
+            case 12:
+                // Edit course data
+                break;
+            case 13:
+                //delete course
+            case 14:
+                //export course csv
+                isCourseFound();
+                break;
+            case 15:
+                //export student csv
+
             case 0: cout << "Exiting...\n";
                 break;
             default:
-                cout<<red<<"Invalid selection - Please input 1 to 4 only or press 0 to Exit!\n";
+                cout<<red<<"Invalid selection - Please input 1 to 10 only or press 0 to Exit!\n";
         }
     }
 
 }
 
 int main() {
-
 #ifdef _WIN32
     HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
     DWORD dwMode = 0;
@@ -101,7 +139,6 @@ int main() {
     dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
     SetConsoleMode(hOut, dwMode);
 #endif
-
 
     try {
         loadDatabase(all_students,all_courses,"cms_db.txt");

@@ -1,12 +1,16 @@
 #define _HAS_STD_BYTE 0
 #include <bits/stdc++.h>
 #include "student.h"
-#define GREEN "\033[32m"
 #include "course.h"
 #include "storage.h"
+
+#define GREEN "\033[32m"
+#define cyan "\033[36m"
+#define RESET   "\033[0m"
+
 using namespace std;
 
-
+//Save data base "Write"
 void saveDatabase(const std::vector<Student>& students,
                   const std::vector<Course>& courses,
                   const std::string& filename){
@@ -47,16 +51,17 @@ void saveDatabase(const std::vector<Student>& students,
             }
             saveDatabase.close();
             cout<<GREEN<<"New data saved SUCCESSFULLY\n";
+            activityLog("new data was save");
         }
 
     }
 
-//Load data base
+//Load data base "Read"
 void loadDatabase(std::vector<Student>& students,
                   std::vector<Course>& courses,
                   const std::string& filename) {
     fstream data_base;
-    data_base.open("cms_db.txt", ios::in);
+    data_base.open("cms_db.txt", ios::in);//read
     if (!data_base)
         throw runtime_error("File not found!");
 
@@ -106,4 +111,50 @@ void loadDatabase(std::vector<Student>& students,
         data_base.close();
     }
 
+}
+
+//Export Course Rport CSV
+void exportCourseCSV(Course* course, std::vector<Student>& students) {
+
+    string filename = course->id + ".csv";
+     ofstream file(filename);
+    if (!file)
+        throw runtime_error("CSV report for course: " + course->id);
+    if (file.is_open()) {
+        file << "Course ID, " << course->id<<"\n";
+        file << "Course Title, " << course->title<<"\n";
+        file << "__________________________________________________________________________________\n";
+
+        file << "Student ID, Student Name, Grade, Statue\n";
+
+        for (int i = 0 ; i <course->grades.size(); i++) {
+            for (int j=0;j<students.size();j++) {
+                if (course->grades[i].first == students[j].id) {
+                    double grade = course->grades[i].second;
+                    string student_name = students[j].name;
+                    string student_id = students[j].id;
+                    string statue = (grade>=60 ?"pass" :"fail");
+                    file <<"/"<< student_id << "/," << student_name << "," << grade <<","<<statue<<"\n";
+                }
+            }
+        }
+        file.close();
+        activityLog("🔵Exported CSV report for course: " + course->id);
+    }
+}
+
+//Timestamped Activity Logger
+void activityLog(const string& message) {
+    ofstream activityLog("system_tracker.log", ios::app);//appand "كنت بحاول اهرب منها طول الوقت"
+
+    if (!activityLog)
+        throw runtime_error("could not open file system tracker.log");
+    if (activityLog.is_open()) {
+        time_t now = time(nullptr);
+        char* dt = ctime(&now);
+        string timeStr(dt);
+        timeStr.pop_back();
+        activityLog <<cyan<< "[" << timeStr << "] " << message <<RESET<<endl;
+        activityLog.close();
+    }
 }

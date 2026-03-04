@@ -2,6 +2,7 @@
 #include "student.h"
 #define GREEN "\033[32m"
 #include "course.h"
+#include "storage.h"
 
 using namespace std;
 
@@ -77,7 +78,7 @@ void addStudent(vector<Student>& students) {
 
     cout << "____________________________________________________________________________\n";
 
-
+    activityLog("Added new student with ID:"+new_Student.id);
 }
 
 
@@ -110,8 +111,11 @@ void deleteStudent(vector<Student>& students, vector<Course>& courses) {
         cout << "_____________________________________________________________________________\n";
         cout << "                       STUDENT DELETED SUCCESSFULLY                        \n";
         cout << "_____________________________________________________________________________\n";
+        activityLog("Admin deleted student with ID: " + id);
     }else {
         cout << "Error: Student with ID ( " << id << " ) was not found!\n";
+
+        activityLog("Admin faild to delete student with ID: " + id);
     }
 }
 //----------------------------------Edit student info-------------------------------
@@ -164,6 +168,7 @@ void editStudent(vector<Student>& students) {
                 cout << "Invalid choice! Please select 1, 2 or 3\n";
         }
     } while (choice != 3);
+    activityLog("Admin Edited student data");
 }
 //----------------------------------Calculate GPA-----------------------------------
 

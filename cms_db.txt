@@ -1,4 +1,4 @@
-17
+18
 30101011234567
 Ahmed Hassan
 1
@@ -110,6 +110,11 @@ Zein El-FAYED
 MOHAMED ABUTRIKA
 5
 0
+01507385028111
+Eman Elemam
+7
+1
+NS101
 9
 CS101
 Intro to Computer Science

@@ -9,4 +9,6 @@ double getDoubleInput(const std::string& prompt);
 std::string getStringInput(const std::string& prompt);
 template <typename T>
 T findMax(const std::vector<T>& items);
+template <typename V>
+V findMin(const std::vector<V>& items);
 #endif

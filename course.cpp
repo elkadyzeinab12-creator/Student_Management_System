@@ -2,6 +2,7 @@
 #include "student.h"
 #include "course.h"
 #include "utils.h"
+#include "storage.h"
 #define GREEN "\033[32m"
 #define red "\033[1;31m"
 #define RESET   "\033[0m"
@@ -39,6 +40,7 @@ void addCourse(vector<Course>& courses) {
     cout << "  Title  : " << new_Course.title << endl;
     cout << "  Credit Hours: " << new_Course.credit_hours << endl;
     cout << "____________________________________________________________________________\n"<<RESET;
+    activityLog("Admin added course with ID: "+new_Course.id);
 }
 //-----------------find course && tell user if he is not found--------------------
 Course* findCourseById(vector<Course>& courses, const string& id) {
@@ -98,6 +100,7 @@ void recordGrade(vector<Course>& courses, vector<Student>& students) {
     cout << "                       GRADE ADDED SUCCESSFULLY                   \n";
     cout << "____________________________________________________________________\n"<<RESET;
 
+    activityLog("new grade was recorded");
 }
 //------------------------------Print Course Report----------------------------------------
 void printCourseReport(vector<Course>& courses, vector<Student>& students) {
@@ -129,4 +132,5 @@ void printCourseReport(vector<Course>& courses, vector<Student>& students) {
         cout << " Course average: " << average  << '\n';
     }
     cout << "____________________________________________________________________\n";
+    activityLog("Admin Printed course report");
 }

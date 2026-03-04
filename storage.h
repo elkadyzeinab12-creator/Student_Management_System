@@ -12,4 +12,7 @@ void saveDatabase(const std::vector<Student>& students,
 void loadDatabase(std::vector<Student>& students,
                   std::vector<Course>& courses,
                   const std::string& filename);
+void exportCourseCSV(Course* course, std::vector<Student>& students);
+void exportStudentsCSV(Student* student, std::vector<Student>& students);
+void activityLog(const std::string& message);
 #endif

@@ -44,3 +44,11 @@ T findMax(const std::vector<T>& items) {
     }
     return max;
 }
+template <typename V>
+V findmin(const std::vector<V>& items) {
+    V min = items[0];
+    for (int i = 1; i < items.size(); i++)
+        if (items[i] < min)
+            min = items[i];
+    return min;
+}
