@@ -50,7 +50,7 @@ void run_menuLoop() {
                break;
             case 2:
                 //delete
-                deleteStudent(all_students);
+                deleteStudent(all_students, all_courses);
                 break;
             case 3: {
                 //  search student by id

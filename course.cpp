@@ -75,10 +75,12 @@ void recordGrade(vector<Course>& courses, vector<Student>& students) {
         return;
     }
 
-    double grade = getDoubleInput("Enter Grade (0 to 100): ");
-    if (grade < 0 || grade > 100) {
-        cout <<red<< "Invalid grade < Please Enter Grade (0 to 100) >\n"<<RESET;
-        return;
+    double grade;
+    while (true) {
+        grade = getDoubleInput("Enter Grade (0 to 100): ");
+        if (grade >= 0 && grade <= 100)
+            break;
+        cout << red << "Invalid grade! Please enter a value between 0 and 100.\n" << RESET;
     }
     for (auto& gradePair : coursePtr->grades) {
         if (gradePair.first == studentId) {
@@ -99,5 +101,32 @@ void recordGrade(vector<Course>& courses, vector<Student>& students) {
 }
 //------------------------------Print Course Report----------------------------------------
 void printCourseReport(vector<Course>& courses, vector<Student>& students) {
+    string id = getStringInput("Enter Course ID: ");
+    Course* courseptr = findCourseById(courses, id);
 
+    if (courseptr == nullptr) {
+        cout << red << "Error: Course not found!\n" << RESET;
+        return;
+    }
+    cout << "____________________________________________________________________\n";
+    cout << "                          REPORT FOR COURSE                          \n";
+    cout << "____________________________________________________________________\n";
+    cout << "      <"<<courseptr->title << "  (" << courseptr->id << ") >         \n";
+    if (courseptr->grades.empty()) {
+        cout << red <<"No students have been graded for this course yet\n" <<RESET;
+    } else {
+        double sum = 0;
+
+        for (const auto& grade : courseptr->grades) {
+            Student* studentptr = findStudentById(students, grade.first);
+
+            cout <<left<<setw(25)<<studentptr->name <<setw(15)<< grade.first<<"=="<< grade.second <<'\n';
+            sum += grade.second;
+        }
+        double average = sum / courseptr->grades.size();
+        cout << "____________________________________________________________________\n";
+        cout << " Total students: " << courseptr->grades.size() << '\n';
+        cout << " Course average: " << average  << '\n';
+    }
+    cout << "____________________________________________________________________\n";
 }

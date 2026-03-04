@@ -10,5 +10,6 @@ add_executable(project main.cpp
         utils.h
         student.cpp
         Storage.cpp
-        course.cpp
-        utlis.cpp)
+        utlis.cpp
+        course.cpp)
+

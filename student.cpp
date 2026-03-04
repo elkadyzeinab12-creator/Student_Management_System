@@ -90,12 +90,22 @@ Student* findStudentById(vector<Student>& students, const string& id) {
     return nullptr;
 }
 //------------------------------Delete student -----------------------------------
-void deleteStudent(vector<Student>& students) {
+void deleteStudent(vector<Student>& students, vector<Course>& courses) {
     string id;
     cout << "Enter Student ID to delete: ";
     cin >> id;
     Student* studentPtr = findStudentById(students, id);
-    if (studentPtr != nullptr) {
+    if (studentPtr != nullptr) {//delete grades with delete student
+        for (auto& course : courses) {
+            for (auto it = course.grades.begin(); it != course.grades.end(); ) {
+                if (it->first == id) {
+                    it = course.grades.erase(it);
+                } else {
+                    ++it;
+                }
+            }
+        }
+        cout << "Student and all their grades deleted successfully.\n" ;
         students.erase(students.begin() + (studentPtr - &students[0]));//to get index and do erase
         cout << "_____________________________________________________________________________\n";
         cout << "                       STUDENT DELETED SUCCESSFULLY                        \n";
