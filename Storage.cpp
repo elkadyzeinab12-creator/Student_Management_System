@@ -4,6 +4,7 @@
 #include "course.h"
 #include "storage.h"
 #include "colors.h"
+#include "utils.h"
 using namespace std;
 
 //Save data base "Write"
@@ -51,7 +52,7 @@ void saveDatabase(const std::vector<Student>& students,
         }
 
     }
-
+//====================================================================================================
 //Load data base "Read"
 void loadDatabase(std::vector<Student>& students,
                   std::vector<Course>& courses,
@@ -108,20 +109,20 @@ void loadDatabase(std::vector<Student>& students,
     }
 
 }
-
+//=============================================================================================================
 //Export Course Rport CSV
 void exportCourseCSV(Course* course, std::vector<Student>& students) {
 
     string filename = course->id + ".csv";
      ofstream file(filename);
     if (!file)
-        throw runtime_error("CSV report for course: " + course->id);
+        throw runtime_error("Couldn't Export CSV report for course: " + course->id);
     if (file.is_open()) {
         file << "Course ID, " << course->id<<"\n";
         file << "Course Title, " << course->title<<"\n";
         file << "__________________________________________________________________________________\n";
 
-        file << "Student ID, Student Name, Grade, Statue\n";
+        file << "Student ID, Student Name, Grade, Statue, GPA\n";
 
         for (int i = 0 ; i <course->grades.size(); i++) {
             for (int j=0;j<students.size();j++) {
@@ -130,14 +131,61 @@ void exportCourseCSV(Course* course, std::vector<Student>& students) {
                     string student_name = students[j].name;
                     string student_id = students[j].id;
                     string statue = (grade>=60 ?"pass" :"fail");
-                    file <<"/"<< student_id << "/," << student_name << "," << grade <<","<<statue<<"\n";
+                    file <<"'"<< student_id << "'," << student_name << "," << grade <<","<<statue<<","<<GpaCourse(grade)<<"\n";
                 }
             }
         }
+        vector<double> Grades;
+        double sum = 0;
+
+        for (const auto& grade : course->grades) {
+            Grades.push_back(grade.second);
+            sum += grade.second;
+        }
+        double mxGrade = findMax(Grades);
+        double mnGrade = findMin(Grades);
+        double average = sum / Grades.size();
+file<<"\n";
+        file<<"Highest Grade: " <<","<< mxGrade <<"\n";
+        file<<"Lowest Grade: "  <<","<< mnGrade <<"\n";
+        file<<"Average Grade: " <<","<< average <<"\n";
+        file<<"Student number:"<<","<<Grades.size();
+
         file.close();
         activityLog("🔵Exported CSV report for course: " + course->id);
     }
 }
+//=======================================================================================================
+//Export Student Report CSV
+void exportStudentsCSV(Student* student , std::vector<Course>& courses ) {
+    string filename = student->name + ".csv";
+    ofstream file(filename);
+    if (!file)
+        throw runtime_error("Couldn't Export CSV report for Student: " + student->id);
+    if (file.is_open()) {
+        file << " Student Name, " << student->name<<"\n";
+        file << " ID, " <<"'"<< student->id<<"\n";
+        file << " Academic Year, "<<student->year<<"\n";
+        file << " Number of enrolled Courses,"<<student->enrolledCourseIds.size()<<"\n";
+        file << " General GPA, "<<calculateGPA(*student,courses)<<"\n"<<"\n\n";
+        file << " Course ID, Course Title, Grade, Statue, GpA\n";
+
+       for (const auto& course:courses) {
+           for (const auto& gradepair:course.grades) {
+               if (student->id==gradepair.first) {
+                   double grade = gradepair.second;
+                   string courseTitle = course.title;
+                   string courseId = course.id;
+                   string statue = (gradepair.second>=60 ? "pass" : "fail");
+                   file<<courseId<<","<<courseTitle<<","<<grade<<","<<statue<<","<<GpaCourse(gradepair.second)<<"\n";
+               }
+           }
+       }
+    file.close();
+        activityLog("🔵Exported CSV report for student: " + student->id);
+    }
+}
+//========================================================================================================
 
 //Timestamped Activity Logger
 void activityLog(const string& message) {

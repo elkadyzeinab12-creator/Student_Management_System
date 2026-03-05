@@ -17,6 +17,5 @@ void deleteStudent(std::vector<Student>& students,std:: vector<Course>& courses)
 void viewAllStudents(std::vector<Student>& students);
 Student* findStudentById(std::vector<Student>& students, const std::string& id);
 double calculateGPA(const Student& s, const std::vector<Course>& allCourses);
-void viewAllStudents(const std::vector<Student>& students);
-
+double GpaCourse(double grade);
 #endif
