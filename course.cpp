@@ -3,10 +3,7 @@
 #include "course.h"
 #include "utils.h"
 #include "storage.h"
-#define GREEN "\033[32m"
-#define red "\033[1;31m"
-#define RESET   "\033[0m"
-#define BLUE "\033[34m"
+#include "colors.h"
 
 using namespace std;
 
@@ -118,19 +115,133 @@ void printCourseReport(vector<Course>& courses, vector<Student>& students) {
     if (courseptr->grades.empty()) {
         cout << red <<"No students have been graded for this course yet\n" <<RESET;
     } else {
-        double sum = 0;
-
-        for (const auto& grade : courseptr->grades) {
-            Student* studentptr = findStudentById(students, grade.first);
-
-            cout <<left<<setw(25)<<studentptr->name <<setw(15)<< grade.first<< grade.second <<'\n';
-            sum += grade.second;
-        }
-        double average = sum / courseptr->grades.size();
         cout << "____________________________________________________________________\n";
-        cout << " Total students: " << courseptr->grades.size() << '\n';
-        cout << " Course average: " << average  << '\n';
+        courseStatistics(courseptr);
     }
     cout << "____________________________________________________________________\n";
     activityLog("Admin Printed course report");
 }
+//-----------------------------------DELETE COURSE---------------------------------------
+void deleteCourse(vector<Course>& courses, vector<Student>& students) {
+    string id = getStringInput("Enter Course ID to delete: ");
+    Course* coursePtr = findCourseById(courses, id);
+
+    if (coursePtr != nullptr) {
+        for (auto& student : students) {
+            auto it = student.enrolledCourseIds.begin();
+            while ( it != student.enrolledCourseIds.end() ) {//delete course from enrolled courses
+                if (*it == id) {
+                    it = student.enrolledCourseIds.erase(it);
+                } else {
+                    ++it;
+                }
+            }
+        }
+        courses.erase(courses.begin() + (coursePtr - &courses[0]));
+
+        cout << GREEN << "____________________________________________________________________\n";
+        cout << "            COURSE AND ALL ENROLLMENTS DELETED SUCCESSFULLY          \n";
+        cout << "____________________________________________________________________\n" << RESET;
+    } else {
+        cout << red << "Error: Course with ID ( " << id << " ) was not found!\n" << RESET;
+    }
+}
+//----------------------------------Edit Course info-------------------------------
+void editCourse(vector<Course>& courses) {
+    string id;
+    cout << "Enter Course ID to edit: ";
+    cin >> id;
+
+    Course* cPtr = findCourseById(courses, id);
+    if (cPtr == nullptr) {
+        cout << red << " Error: Course with ID ( " << id << " ) was not found!\n" << RESET;
+        return;
+    }
+
+    int choice;
+    do {
+        cout << "\n-----------------------< EDIT COURSE DATA >------------------------\n";
+        cout << "Current Data < Title: " << cPtr->title << " > < Credits: " << cPtr->credit_hours << " >\n";
+        cout << "----------------------------------------------------------------------\n";
+        cout << "1. Edit Title\n";
+        cout << "2. Edit Credit Hours\n";
+        cout << "3. Save & Exit\n";
+        cout << "Enter your choice: ";
+
+        while (!(cin >> choice)) {
+            cout << "Invalid input! Please enter a number (1-3): ";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+
+        switch (choice) {
+            case 1:
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Enter New Title: ";
+                getline(cin, cPtr->title);
+                cout << "Title updated successfully!\n";
+                break;
+
+            case 2:
+                cout << "Enter New Credit Hours: ";
+                while (!(cin >> cPtr->credit_hours)) {
+                    cout << "Invalid! Please enter a number for Credits: ";
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                }
+                cout << "Credit hours updated successfully!\n";
+                break;
+
+            case 3:
+                cout << GREEN << "____________________________________________________________________\n";
+                cout << "                       CHANGES SAVED SUCCESSFULLY                   \n";
+                cout << "____________________________________________________________________\n" << RESET;
+                break;
+
+            default:
+                cout << "Invalid choice! Please select 1, 2 or 3\n";
+        }
+    } while (choice != 3);
+}
+//----------------------------------View All Courses ----------------------------
+void viewAllCourses(const vector<Course>& courses) {
+    if (courses.empty()) {
+        cout << "\nNo courses registered in the system yet.\n" ;
+        return;
+    }
+
+    cout << "____________________________________________________________________\n";
+    cout << "                           VIEW ALL COURSES                         \n";
+    cout << "____________________________________________________________________\n";
+    cout << left << setw(15) << "Course ID" << setw(30) << "Course Title" << "Credit Hours" << '\n';
+    cout << "--------------------------------------------------------------------\n";
+
+    for (const auto& c : courses) {
+        cout << left << setw(15) << c.id << setw(30) << c.title << c.credit_hours << '\n';
+    }
+
+    cout << "--------------------------------------------------------------------\n";
+    cout << " Total Number of Courses: " << courses.size() <<'\n';
+    cout << "____________________________________________________________________\n";
+}
+//---------------------------------CourseStatistics---------------------------------
+void courseStatistics(Course* courseptr) {
+    if (courseptr == nullptr || courseptr->grades.empty()) {
+        return;
+    }
+    vector<double> Grades;
+    double sum = 0;
+
+    for (const auto& grade : courseptr->grades) {
+        Grades.push_back(grade.second);
+        sum += grade.second;
+    }
+    double mxGrade = findMax(Grades);
+    double mnGrade = findMin(Grades);
+    double average = sum / Grades.size();
+    cout << "Course Statistics:" << '\n';
+    cout << "Highest Grade: " << mxGrade << '\n';
+    cout << "Lowest Grade:  " << mnGrade << '\n';
+    cout << "Average Grade: " << fixed << setprecision(2) << average << '\n';
+}
+//-----------------------------------finish :)-----------------------------------------

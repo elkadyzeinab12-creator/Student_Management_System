@@ -4,18 +4,12 @@
 #include "course.h"
 #include "utils.h"
 #include "storage.h"
+#include "colors.h"
 #ifdef _WIN32
 #include <windows.h>
 #endif
 using namespace std;
 #define ll long long
-#define red "\033[1;31m"
-#define BLUE "\033[34m"
-#define GREEN "\033[32m"
-#define RESET   "\033[0m"
-#define PURPLE "\033[35m"
-#define LIGHT_PURPLE "\033[1;35m"
-#define cyan "\033[36m"
 
 vector<Student> all_students ;
 vector<Course> all_courses;
@@ -39,7 +33,7 @@ void menu_loop () {
     cout << "11. View all Courses\n";
     cout << "12. Edit Course data\n";
     cout << "13. delete course\n";
-    cout << "14. Export Course Report to CSV\n";//done "still avrage, highst and lowest grade and student number"
+    cout << "14. Export Course Report to CSV\n";//done "still average, highest and lowest grade and student number"
     cout << "15. Export Student Report to CSV\n";
     cout << "0. Exit\n"<<RESET;
     cout << "Enter your choice : ";
@@ -62,7 +56,7 @@ void run_menuLoop() {
                 addStudent(all_students);
                break;
             case 2:
-                //delete tudent
+                //delete student
                 deleteStudent(all_students, all_courses);
                 break;
             case 3: {

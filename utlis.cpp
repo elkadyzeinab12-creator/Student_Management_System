@@ -1,8 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 #include "utils.h"
-#define red "\033[1;31m"
-#define RESET   "\033[0m"
+#include "colors.h"
 
 int getIntInput(const std::string& prompt) {
     int value;
@@ -33,22 +32,4 @@ std::string getStringInput(const std::string& prompt) {
         cin.clear();
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
-}
-template <typename T>
-T findMax(const std::vector<T>& items) {
-    T max = items[0];
-    for (int i = 1; i < items.size(); i++) {
-        if (items[i] > max) {
-            max = items[i];
-        }
-    }
-    return max;
-}
-template <typename V>
-V findmin(const std::vector<V>& items) {
-    V min = items[0];
-    for (int i = 1; i < items.size(); i++)
-        if (items[i] < min)
-            min = items[i];
-    return min;
 }

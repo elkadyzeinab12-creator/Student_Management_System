@@ -18,5 +18,7 @@ void recordGrade(std::vector<Course>& courses,
                  std::vector<class Student>& students);
 void printCourseReport(std::vector<Course>& courses,
                        std::vector<class Student>& students);
-
+void viewAllCourses(const std::vector<Course>& courses);
+void editCourse(std::vector<Course>& courses);
+void courseStatistics(Course* courseptr);
 #endif

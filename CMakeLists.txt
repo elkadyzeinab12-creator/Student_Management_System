@@ -11,5 +11,6 @@ add_executable(project main.cpp
         student.cpp
         Storage.cpp
         utlis.cpp
-        course.cpp)
+        course.cpp
+        colors.h)
 

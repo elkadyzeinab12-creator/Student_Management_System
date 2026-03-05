@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 #include "student.h"
+#include "colors.h"
 #define GREEN "\033[32m"
 #include "course.h"
-#include "storage.h"
 
 using namespace std;
 
@@ -77,11 +77,7 @@ void addStudent(vector<Student>& students) {
         cout <<"  "<< i+1<<"-"<< new_Student.enrolledCourseIds[i] << endl;
 
     cout << "____________________________________________________________________________\n";
-
-    activityLog("Added new student with ID:"+new_Student.id);
 }
-
-
 //------------------find student && tell user if he is not found----------------
 
 Student* findStudentById(vector<Student>& students, const string& id) {
@@ -111,11 +107,8 @@ void deleteStudent(vector<Student>& students, vector<Course>& courses) {
         cout << "_____________________________________________________________________________\n";
         cout << "                       STUDENT DELETED SUCCESSFULLY                        \n";
         cout << "_____________________________________________________________________________\n";
-        activityLog("Admin deleted student with ID: " + id);
     }else {
         cout << "Error: Student with ID ( " << id << " ) was not found!\n";
-
-        activityLog("Admin faild to delete student with ID: " + id);
     }
 }
 //----------------------------------Edit student info-------------------------------
@@ -168,7 +161,56 @@ void editStudent(vector<Student>& students) {
                 cout << "Invalid choice! Please select 1, 2 or 3\n";
         }
     } while (choice != 3);
-    activityLog("Admin Edited student data");
+}
+//----------------------------------View All Students -------------------------
+void viewAllStudents(const vector<Student>& students, const vector<Course>& courses) {
+    if (students.empty()) {
+        cout << "No students registered in the system yet\n";
+        return;
+    }
+
+    cout << "____________________________________________________________________\n";
+    cout << "                           VIEW ALL STUDENTS                         \n";
+    cout << "____________________________________________________________________\n";
+    cout << left << setw(15) << "Student ID" << setw(30) << "Student Name" << "GPA" << '\n';
+    cout << "--------------------------------------------------------------------\n";
+
+    for (const auto& s : students) {
+        double gpa = calculateGPA(s, courses);
+        cout << left << setw(15) << s.id << setw(30) << s.name <<  fixed << setprecision(2) << gpa << '\n';
+    }
+
+    cout << "--------------------------------------------------------------------\n";
+    cout << " Total Number of Students: " << students.size() << '\n';
+    cout << "____________________________________________________________________\n";
 }
 //----------------------------------Calculate GPA-----------------------------------
+double GpaCourse(double grade) {//calculate takdeer el madaa
+    if (grade >= 90) return 4.0;
+    if (grade >= 85) return  3.6;
+    if (grade >= 80) return  3.3;
+    if (grade >= 75) return  3.0;
+    if (grade >= 70) return  2.6;
+    if (grade >= 65) return  2.4;
+    if (grade >= 60) return  2.2;
+    if (grade >= 50) return  2;
+    return 0;
+}
 
+double calculateGPA(const Student& s, const vector<Course>& allCourses) {//can return value to be used in another situations
+    double totalpoints = 0;
+    int totalhours = 0;
+    for (const auto& course : allCourses) {
+
+        for (const auto& grade : course.grades) {
+            if (grade.first == s.id) {
+                totalpoints += GpaCourse(grade.second) * course.credit_hours;
+                totalhours += course.credit_hours;
+                break;
+            }
+        }
+    }
+    if (totalhours == 0) return 0;
+    return totalpoints / totalhours;
+}
+//-----------------------------------finish :)-----------------------------------------

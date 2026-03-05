@@ -3,11 +3,7 @@
 #include "student.h"
 #include "course.h"
 #include "storage.h"
-
-#define GREEN "\033[32m"
-#define cyan "\033[36m"
-#define RESET   "\033[0m"
-
+#include "colors.h"
 using namespace std;
 
 //Save data base "Write"
