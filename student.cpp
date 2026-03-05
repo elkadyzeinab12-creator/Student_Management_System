@@ -100,7 +100,7 @@ void addStudent(vector<Course>& courses,vector<Student>& students) {
 
     students.push_back(new_Student);
     cout << "____________________________________________________________________________\n" ;
-    cout <<GREEN<< "                       STUDENT REGISTERED SUCCESSFULLY                       "<<'\n' ;
+    cout <<GREEN<< "                       STUDENT REGISTERED SUCCESSFULLY                       "<<'\n'<<RESET ;
     cout << "____________________________________________________________________________\n";
     cout << "  Name: " <<  new_Student.name <<  endl;
     cout << "  ID  : " << new_Student.id << endl;
@@ -202,9 +202,9 @@ void editStudent(vector<Student>& students) {
     activityLog("Admin Edited student data");
 }
 //----------------------------------View All Students -------------------------
-void viewAllStudents(const vector<Student>& students, const vector<Course>& courses) {
+void viewAllStudents( vector<Student>& students,  vector<Course>& courses) {
     if (students.empty()) {
-        cout << "No students registered in the system yet\n";
+        cout << red<<"No students registered in the system yet\n"<<RESET;
         return;
     }
 

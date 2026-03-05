@@ -33,8 +33,8 @@ void menu_loop () {
     cout << "11. View all Courses\n";//done
     cout << "12. Edit Course data\n";//done
     cout << "13. delete course\n";//done
-    cout << "14. Export Course Report to CSV\n";//done "still average, highest and lowest grade and student number"
-    cout << "15. Export Student Report to CSV\n";
+    cout << "14. Export Course Report to CSV\n";//done
+    cout << "15. Export Student Report to CSV\n";//done
     cout << "0. Exit\n"<<RESET;
     }
 
@@ -116,7 +116,7 @@ void run_menuLoop() {
               break;
             case 5:
                 // view all students
-
+                viewAllStudents(all_students,all_courses);
                 break;
             case 6:
                 //edit student data
