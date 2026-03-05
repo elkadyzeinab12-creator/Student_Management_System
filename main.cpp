@@ -30,26 +30,67 @@ void menu_loop () {
     cout << "8. Add new Course\n";//done
     cout << "9.  Find Course\n";//done
     cout << "10. View Course Report\n";//done
-    cout << "11. View all Courses\n";
-    cout << "12. Edit Course data\n";
-    cout << "13. delete course\n";
-    cout << "14. Export Course Report to CSV\n";//done "still average, highest and lowest grade and student number"
-    cout << "15. Export Student Report to CSV\n";
+    cout << "11. View all Courses\n";//done
+    cout << "12. Edit Course data\n";//done
+    cout << "13. delete course\n";//done
+    cout << "14. Export Course Report to CSV\n";//done
+    cout << "15. Export Student Report to CSV\n";//done
     cout << "0. Exit\n"<<RESET;
-    cout << "Enter your choice : ";
     }
 
 void isCourseFound() {
-    for (auto& c : all_courses) {
-       exportCourseCSV(&c,all_students);
-        }
-}
+int choice=getIntInput("Enter 1 to get all courses in CSV or 2 to get one course : ");
+    if (choice == 1) {
 
+        for (auto& c : all_courses)
+            exportCourseCSV(&c,all_students);
+        cout<<GREEN<<"Courses CSV Exported SUCCESSFULY , you can find them in the directory\n"<<RESET;
+    }
+    else if (choice == 2) {
+         bool isCourseFound=false;
+        string id=getStringInput("Enter Course ID to Export CSV : ");
+        for (auto& c : all_courses) {
+            if (c.id == id) {
+                isCourseFound=true;
+                exportCourseCSV(&c,all_students);
+                 cout<<GREEN<<"Course CSV Exported SUCCESSFULLY , you can find it in the directory\n"<<RESET;
+                break;
+            }
+        }
+       if (!isCourseFound) cout<<red<<"Course Not Found\n"<<RESET;
+    }
+    else  cout<<red<<"Invalid selection - Please input 1  or 2 \n";
+}
+//;/////////////////////////////////////////////////////////////////////////////////////////////
+void isStudentFound() {
+    int choice=getIntInput("Enter 1 to get all students in CSV or 2 to get one student : ");
+    if (choice == 1) {
+
+        for (auto& c : all_students)
+            exportStudentsCSV(&c,all_courses);
+        cout<<GREEN<<"students CSV Exported SUCCESSFULLY , you can find them in the directory\n"<<RESET;
+    }
+    else if (choice == 2) {
+        bool isstudFound=false;
+        string id=getStringInput("Enter Student ID to Export CSV : ");
+        for (auto& c : all_students) {
+            if (c.id == id) {
+                isstudFound=true;
+                exportStudentsCSV(&c,all_courses);
+                cout<<GREEN<<"Course CSV Exported SUCCESSFULLY , you can find it in the directory\n"<<RESET;
+                break;
+            }
+        }
+        if (!isstudFound) cout<<red<<"Stud Not Found\n"<<RESET;
+    }
+    else  cout<<red<<"Invalid selection - Please input 1  or 2 \n";
+}
+//=========================================================================================================
 void run_menuLoop() {
     ll choice=-1;
     while (choice != 0) {
         menu_loop();
-        cin>>choice;
+        choice=getIntInput("Enter your choice : ");
         switch (choice) {
             case 1:
                 //add student
@@ -75,7 +116,7 @@ void run_menuLoop() {
               break;
             case 5:
                 // view all students
-
+                viewAllStudents(all_students,all_courses);
                 break;
             case 6:
                 //edit student data
@@ -103,23 +144,27 @@ void run_menuLoop() {
                 break;
             case 11:
                 //view all courses
+                viewAllCourses(all_courses);
                 break;
             case 12:
                 // Edit course data
+                editCourse(all_courses);
                 break;
             case 13:
                 //delete course
+                deleteCourse(all_courses, all_students);
             case 14:
                 //export course csv
                 isCourseFound();
                 break;
             case 15:
                 //export student csv
-
+                isStudentFound();
+                break;
             case 0: cout << "Exiting...\n";
                 break;
             default:
-                cout<<red<<"Invalid selection - Please input 1 to 10 only or press 0 to Exit!\n";
+                cout<<red<<"Invalid selection - Please input 1 to 15 only or press 0 to Exit!\n";
         }
     }
 

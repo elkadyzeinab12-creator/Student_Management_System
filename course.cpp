@@ -142,8 +142,10 @@ void deleteCourse(vector<Course>& courses, vector<Student>& students) {
         cout << GREEN << "____________________________________________________________________\n";
         cout << "            COURSE AND ALL ENROLLMENTS DELETED SUCCESSFULLY          \n";
         cout << "____________________________________________________________________\n" << RESET;
+        activityLog("Admin Deleted course with ID: " + id);
     } else {
         cout << red << "Error: Course with ID ( " << id << " ) was not found!\n" << RESET;
+        activityLog("Admin faild to delete Course with ID: " + id);
     }
 }
 //----------------------------------Edit Course info-------------------------------
@@ -169,7 +171,7 @@ void editCourse(vector<Course>& courses) {
         cout << "Enter your choice: ";
 
         while (!(cin >> choice)) {
-            cout << "Invalid input! Please enter a number (1-3): ";
+            cout << red<<"Invalid input! Please enter a number (1-3): "<<RESET;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
         }
@@ -179,17 +181,17 @@ void editCourse(vector<Course>& courses) {
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout << "Enter New Title: ";
                 getline(cin, cPtr->title);
-                cout << "Title updated successfully!\n";
+                cout <<GREEN<< "Title updated successfully!\n"<<RESET;
                 break;
 
             case 2:
                 cout << "Enter New Credit Hours: ";
                 while (!(cin >> cPtr->credit_hours)) {
-                    cout << "Invalid! Please enter a number for Credits: ";
+                    cout <<red<< "Invalid! Please enter a number for Credits: "<<RESET;
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 }
-                cout << "Credit hours updated successfully!\n";
+                cout << GREEN<<"Credit hours updated successfully!\n";
                 break;
 
             case 3:
@@ -199,14 +201,15 @@ void editCourse(vector<Course>& courses) {
                 break;
 
             default:
-                cout << "Invalid choice! Please select 1, 2 or 3\n";
+                cout <<red<< "Invalid choice! Please select 1, 2 or 3\n"<<RESET;
         }
     } while (choice != 3);
+    activityLog("Admin Edited information of he Course with Id: "+id);
 }
 //----------------------------------View All Courses ----------------------------
 void viewAllCourses(const vector<Course>& courses) {
     if (courses.empty()) {
-        cout << "\nNo courses registered in the system yet.\n" ;
+        cout << YELLOW<<"\nNo courses registered in the system yet.\n"<<RESET ;
         return;
     }
 
@@ -223,6 +226,7 @@ void viewAllCourses(const vector<Course>& courses) {
     cout << "--------------------------------------------------------------------\n";
     cout << " Total Number of Courses: " << courses.size() <<'\n';
     cout << "____________________________________________________________________\n";
+    activityLog("Admin printed all courses <on console>");
 }
 //---------------------------------CourseStatistics---------------------------------
 void courseStatistics(Course* courseptr) {
