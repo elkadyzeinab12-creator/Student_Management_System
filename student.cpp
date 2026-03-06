@@ -49,9 +49,9 @@ void addStudent(vector<Course>& courses,vector<Student>& students) {
     getline(cin, new_Student.name);
 
     cout << "Enter Academic Year: ";
-    while (!(cin >> new_Student.year)) { // if the user give input other than numbers
+    while (!(cin >> new_Student.year)|| new_Student.year > 7 || new_Student.year <= 0) { // if the user give input other than numbers
 
-        cout <<red<< "Invalid input ! \n"<<"Please , enter a number for Year: "<<RESET;
+        cout <<red<< "Invalid input ! \n"<<"Please , Enter a number for Year: "<<RESET;
 
         cin.clear();
 
@@ -237,7 +237,7 @@ double GpaCourse(double grade) {//calculate takdeer el madaa
     if (grade >= 50) return  2;
     return 0;
 }
-//;/////////////////////////////////////////////////////////////////////////////////////////////
+//------------------------------------------------------------------------------------
 double calculateGPA(const Student& s, const vector<Course>& allCourses) {//can return value to be used in another situations
     double totalpoints = 0;
     int totalhours = 0;
