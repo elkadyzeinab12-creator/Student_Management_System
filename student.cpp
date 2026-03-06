@@ -167,6 +167,7 @@ void editStudent(vector<Student>& students) {
                 cout <<red<< "Invalid choice! Please select 1, 2 or 3\n"<<GREEN;
         }
     } while (choice != 3);
+    activityLog("Admin Edited information of the Student with Id: "+id);
 }
 //----------------------------------View All Students -------------------------
 void viewAllStudents( vector<Student>& students,  vector<Course>& courses) {
@@ -189,6 +190,8 @@ void viewAllStudents( vector<Student>& students,  vector<Course>& courses) {
     cout << "--------------------------------------------------------------------\n";
     cout << " Total Number of Students: " << students.size() << '\n';
     cout << "____________________________________________________________________\n";
+    activityLog("Admin printed all Students <on console>");
+
 }
 //----------------------------------Calculate GPA-----------------------------------
 double GpaCourse(double grade) {//calculate takdeer el madaa

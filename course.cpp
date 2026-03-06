@@ -70,7 +70,7 @@ void recordGrade(vector<Course>& courses, vector<Student>& students) {
         }
     }
     if (!enrolled) {
-        cout << "Error: Student is not enrolled in this course\n";
+        cout <<red<< "Error: Student is not enrolled in this course\n"<<RESET;
         return;
     }
 
@@ -191,7 +191,7 @@ void editCourse(vector<Course>& courses) {
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 }
-                cout << GREEN<<"Credit hours updated successfully!\n";
+                cout << GREEN<<"Credit hours updated successfully!\n"<<RESET;
                 break;
 
             case 3:
