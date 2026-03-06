@@ -199,6 +199,7 @@ void editStudent(vector<Student>& students) {
                 cout <<red<< "Invalid choice! Please select 1, 2 or 3\n"<<GREEN;
         }
     } while (choice != 3);
+    activityLog("Admin Edited information of the Student with Id: "+id);
 }
 //----------------------------------View All Students -------------------------
 void viewAllStudents( vector<Student>& students,  vector<Course>& courses) {
