@@ -52,12 +52,13 @@ void courseManag_menue() {
 void isStudentFound() {
     int choice=getIntInput("Enter 1 to get all students in CSV or 2 to get one student : ");
     if (choice == 1) {
-
+     activityLog("Admin Entered STUDENTS MANAGEMENT");
         for (auto& c : all_students)
             exportStudentsCSV(&c,all_courses);
         cout<<GREEN<<"students CSV Exported SUCCESSFULLY , you can find them in the directory\n"<<RESET;
     }
     else if (choice == 2) {
+      activityLog("Admin Entered COURSES MANAGEMENT");
         bool isstudFound=false;
         string id=getStringInput("Enter Student ID to Export CSV : ");
         for (auto& c : all_students) {
