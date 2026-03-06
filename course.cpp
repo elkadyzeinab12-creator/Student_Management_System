@@ -40,10 +40,11 @@ void addCourse(vector<Course>& courses) {
     activityLog("Admin added course with ID: "+new_Course.id);
 }
 //-----------------find course && tell user if he is not found--------------------
-Course* findCourseById(vector<Course>& courses, const string& id) {
+Course* findCourseById(const
+    vector<Course>& courses, const string& id) {
     for (auto& c : courses) {
         if (c.id == id) {
-            return &c;
+            return const_cast<Course*>(&c);
         }
     }
     return nullptr;
@@ -191,7 +192,7 @@ void editCourse(vector<Course>& courses) {
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 }
-                cout << GREEN<<"Credit hours updated successfully!\n"<<RESET;
+                cout << GREEN<<"Credit hours updated successfully!\n";
                 break;
 
             case 3:
@@ -243,10 +244,9 @@ void courseStatistics(Course* courseptr) {
     double mxGrade = findMax(Grades);
     double mnGrade = findMin(Grades);
     double average = sum / Grades.size();
-    cout << "Course Statistics:"<<"," << '\n';
-    cout << "Highest Grade: " <<","<< mxGrade << '\n';
-    cout << "Lowest Grade: "  <<"," << mnGrade << '\n';
-    cout << "Average Grade: " <<","<< fixed << setprecision(2) << average << '\n';
-    activityLog("course Statistics was caculated");
+    cout << "Course Statistics:" << '\n';
+    cout << "Highest Grade: " << mxGrade << '\n';
+    cout << "Lowest Grade:  " << mnGrade << '\n';
+    cout << "Average Grade: " << fixed << setprecision(2) << average << '\n';
 }
 //-----------------------------------finish :)-----------------------------------------

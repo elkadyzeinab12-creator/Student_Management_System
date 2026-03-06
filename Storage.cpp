@@ -158,7 +158,7 @@ file<<"\n";
 //=======================================================================================================
 //Export Student Report CSV
 void exportStudentsCSV(Student* student , std::vector<Course>& courses ) {
-    string filename = student->name + ".csv";
+    string filename = student->id + ".csv";
     ofstream file(filename);
     if (!file)
         throw runtime_error("Couldn't Export CSV report for Student: " + student->id);
@@ -198,7 +198,8 @@ void activityLog(const string& message) {
         char* dt = ctime(&now);
         string timeStr(dt);
         timeStr.pop_back();
-        activityLog <<cyan<< "[" << timeStr << "] " << message <<RESET<<endl;
+        activityLog << "[" << timeStr << "] " << message <<endl;
+        activityLog.flush();
         activityLog.close();
     }
 }

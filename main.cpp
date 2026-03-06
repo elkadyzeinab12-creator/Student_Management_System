@@ -29,10 +29,10 @@ void studManag_menue() {
     cout << "1. Add new student\n";//done
     cout << "2. Delete student\n";//done
     cout << "3. Find student \n";//done
-    cout << "4. View Student Report\n";
+    cout << "4. View Student Report\n";//done
     cout << "5. View all students\n";//done
     cout << "6. Edit student data\n";//done
-    cout << "7. Record student in a course\n";//done
+    cout << "7. Record student Grade\n";//done
     cout << "8. Export Student Report to CSV\n";//done
     cout << "0. Return to the main menu\n"<<RESET;
 }
@@ -40,12 +40,12 @@ void studManag_menue() {
 void courseManag_menue() {
     cout<<BG<<"____________________________________________________________________________\n";
     cout << "1. Add new Course\n";//done
-    cout << "2. Delete Course\n";//done
-    cout << "3. Find Course \n";//done
-    cout << "4. View Course Report\n";//done
-    cout << "5. View all Courses\n";//done
-    cout << "6. Edit Course data\n";//done
-    cout << "7. Record student in a course\n";//done
+    cout << "2. Find Course\n";//done
+    cout << "3. View Course Report\n";//done
+    cout << "4. View all Courses\n";//done
+    cout << "5. Edit Course data\n";//done
+    cout << "6. Delete Course\n";//done
+    cout << "7. Export Course Report to CSV\n";//done
     cout << "0. Return to the main menu\n"<<RESET;
 }
 //;///////////////////////////////////////////////////////////////////////////////////////////////
@@ -106,7 +106,7 @@ void stud_loop() {
         switch (selection) {
             case 1:
                 //add student
-                addStudent(all_students);
+                addStudent(all_courses,all_students);
                 break;
             case 2:
                 //delete student
@@ -122,9 +122,15 @@ void stud_loop() {
                 }
             }
                 break;
-            case 4:
+            case 4: {
                 //  view  student report
+               string id=getStringInput("Enter Student ID : ");
+                for (auto& c : all_students) {
+                    if (c.id == id)
+                        printStudentReport(c,all_courses);
+                }
 
+            }
                 break;
             case 5:
                 // view all students

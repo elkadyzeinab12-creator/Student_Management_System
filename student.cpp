@@ -211,12 +211,12 @@ void viewAllStudents( vector<Student>& students,  vector<Course>& courses) {
     cout << "____________________________________________________________________\n";
     cout << "                           VIEW ALL STUDENTS                         \n";
     cout << "____________________________________________________________________\n";
-    cout << left << setw(15) << "Student ID" << setw(30) << "Student Name" << setw(5) << "Academic Year" << "GPA" << '\n';
+    cout << left << setw(15) << "Student ID" << setw(25) << "Student Name" << setw(20) << "Academic Year" << "GPA" << '\n';
     cout << "--------------------------------------------------------------------\n";
 
     for (const auto& s : students) {
         double gpa = calculateGPA(s, courses);
-        cout << left << setw(15) << s.id << setw(30) << s.name << setw(5) <<  s.year << fixed << setprecision(2) << gpa << '\n';
+        cout << left << setw(15) << s.id << setw(30) << s.name << setw(15) <<  s.year << fixed << setprecision(2) << gpa << '\n';
     }
 
     cout << "--------------------------------------------------------------------\n";
