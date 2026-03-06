@@ -1,6 +1,19 @@
 [36m[Wed Mar 04 22:49:40 2026] Added new student with ID:01507385028111[0m
 [36m[Wed Mar 04 22:50:23 2026] new data was save[0m
 [36m[Thu Mar 05 05:46:41 2026] new data was save[0m
+[36m[Thu Mar 05 21:53:47 2026] Added new student with ID:30701252303025[0m
+[36m[Thu Mar 05 21:59:45 2026] Admin faild to delete student with ID: 894387[0m
+[36m[Thu Mar 05 22:00:00 2026] Admin printed all Students <on console>[0m
+[36m[Thu Mar 05 22:03:54 2026] Admin printed all courses <on console>[0m
+[36m[Thu Mar 05 22:04:38 2026] Admin Printed course report[0m
+[36m[Thu Mar 05 22:13:47 2026] Admin Edited information of the Student with Id: 30203033456789[0m
+[36m[Thu Mar 05 22:16:24 2026] Admin Edited information of he Course with Id: SWE201[0m
+[36m[Thu Mar 05 22:45:27 2026] Admin printed all courses <on console>[0m
+[36m[Thu Mar 05 22:48:03 2026] new data was save[0m
+[36m[Thu Mar 05 22:52:09 2026] 🔵Exported CSV report for student: 30203033456789[0m
+[36m[Thu Mar 05 22:52:27 2026] new data was save[0m
+[36m[Fri Mar 06 01:37:19 2026] Added new student with ID:99999999999999[0m
+[36m[Fri Mar 06 01:50:28 2026] new data was save[0m
 [36m[Thu Mar 05 09:23:06 2026] 🔵Exported CSV report for course: CS101[0m
 [36m[Thu Mar 05 09:23:06 2026] 🔵Exported CSV report for course: CS102[0m
 [36m[Thu Mar 05 09:23:06 2026] 🔵Exported CSV report for course: MATH201[0m
