@@ -1,12 +1,13 @@
 #include <bits/stdc++.h>
 #include "student.h"
+#include "course.h"
 #include "colors.h"
 #define GREEN "\033[32m"
 #include "course.h"
 
 using namespace std;
 
-void addStudent(vector<Student>& students) {
+void addStudent(vector<Course>& courses,vector<Student>& students) {
 
     Student new_Student;
     cout << "----------------------------<ADD NEW STUDENT>-------------------------------\n";
@@ -57,11 +58,42 @@ void addStudent(vector<Student>& students) {
     }
     cout << "Enter Number of Enrolled courses: " ;
     int numEnrolled;
-    cin >> numEnrolled;
+    while (!(cin >> numEnrolled) || numEnrolled <= 0 || numEnrolled > courses.size()) {
+        if (numEnrolled > courses.size()) {
+           cout << "Error: This number of courses does not exist!";
+        }
+        else {
+            cout << red << "Invalid number! Please enter a valid positive integer " << RESET << endl;
+        }
+
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Enter Number of Enrolled courses: " ;
+    }
     for (int i = 0; i < numEnrolled; i++) {
-        cout << "Enter Course code : ";
         string course_code;
-        cin>> course_code ;
+        while (true) {
+            cout << "Enter Course code ("<<i+1<<") :";
+            cin>> course_code ;
+            Course* coursePtr = findCourseById(courses, course_code);
+            if (coursePtr == nullptr) {
+                cout << red << "Error: ( " << course_code << " ) does not exist! Try again" << RESET << endl;
+                continue;
+            }
+            bool alreadyEnrolled = false;
+            for (const string& id : new_Student.enrolledCourseIds) {
+                if (id == course_code) {
+                    alreadyEnrolled = true;
+                    break;
+                }
+            }
+            if (alreadyEnrolled)
+                cout << red <<"Error: Student is already enrolled in (" << course_code << ") choose another" << RESET << endl;
+            else
+                break;
+
+        }
+
         new_Student.enrolledCourseIds.push_back(course_code);
     }
 
@@ -172,12 +204,12 @@ void viewAllStudents(const vector<Student>& students, const vector<Course>& cour
     cout << "____________________________________________________________________\n";
     cout << "                           VIEW ALL STUDENTS                         \n";
     cout << "____________________________________________________________________\n";
-    cout << left << setw(15) << "Student ID" << setw(30) << "Student Name" << "GPA" << '\n';
+    cout << left << setw(15) << "Student ID" << setw(30) << "Student Name" << setw(5) << "Academic Year" << "GPA" << '\n';
     cout << "--------------------------------------------------------------------\n";
 
     for (const auto& s : students) {
         double gpa = calculateGPA(s, courses);
-        cout << left << setw(15) << s.id << setw(30) << s.name <<  fixed << setprecision(2) << gpa << '\n';
+        cout << left << setw(15) << s.id << setw(30) << s.name << setw(5) <<  s.year << fixed << setprecision(2) << gpa << '\n';
     }
 
     cout << "--------------------------------------------------------------------\n";
@@ -212,5 +244,29 @@ double calculateGPA(const Student& s, const vector<Course>& allCourses) {//can r
     }
     if (totalhours == 0) return 0;
     return totalpoints / totalhours;
+}
+//---------------------------------Student report----------------------------------------
+void printStudentReport(const Student& s, const vector<Course>& allCourses) {
+    cout << "____________________________________________________________________\n";
+    cout << "                            STUDENT REPORT                          \n";
+    cout << "____________________________________________________________________\n";
+    cout << "Name: " << s.name << '\n';
+    cout << "ID: " << s.id << '\n';
+    cout << "Academic Year: " << s.year << '\n';
+    cout << "< Enrolled courses >" << '\n';
+    cout << left << setw(15) << "Course ID" << setw(30) << "Course Name" << setw(10) << "Grade" <<"Course GPA"<< '\n';
+    for (const string& id : s.enrolledCourseIds) {
+        Course* c = findCourseById(allCourses, id);
+        int grade =0;
+        for (const auto& g : c->grades) {
+            if (g.first == s.id) {
+                 grade= g.second;
+                break;
+            }
+        }
+            cout << left << setw(15) << c->id << setw(30) << c->title << setw(10) << grade << GpaCourse(grade) << '\n';
+    }
+    double GPA = calculateGPA(s, allCourses);
+    cout << "-GPA: " << fixed << setprecision(2) << GPA << '\n';
 }
 //-----------------------------------finish :)-----------------------------------------

@@ -13,7 +13,7 @@ struct Course {
 };
 
 void addCourse(std::vector<Course>& courses);
-Course* findCourseById(std::vector<Course>& courses, const std::string& id);
+Course* findCourseById(const std::vector<Course>& courses, const std::string& id);
 void recordGrade(std::vector<Course>& courses,
                  std::vector<class Student>& students);
 void printCourseReport(std::vector<Course>& courses,
