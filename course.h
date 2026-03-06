@@ -21,4 +21,6 @@ void printCourseReport(std::vector<Course>& courses,
 void viewAllCourses(const std::vector<Course>& courses);
 void editCourse(std::vector<Course>& courses);
 void courseStatistics(Course* courseptr);
+void deleteCourse(std::vector<Course>& courses, std::vector<Student>& students);
+
 #endif
