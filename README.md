@@ -2,7 +2,7 @@
 
 * **Advanced UI:** Added full color support for terminal output using `colors.h` to improve user experience.
 * **System Audit Logger:** Implemented a persistence layer that records all user activities in `system_tracker.log`.
-* **Student Reports:** Added functionality to view and export student reports (Option 14 & 15).
+* **Student Reports:** Added functionality to view and export student reports (Option 4 & 8).
 * **Code Merging:** Successfully integrated and merged team contributions into the master branch.
 
 ##  How to Run:
