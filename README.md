@@ -1,4 +1,4 @@
-# Student Management System (ICPC Project) 
+# Student Management System 
 
 * **Advanced UI:** Added full color support for terminal output using `colors.h` to improve user experience.
 * **System Audit Logger:** Implemented a persistence layer that records all user activities in `system_tracker.log`.
