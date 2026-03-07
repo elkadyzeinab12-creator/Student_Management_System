@@ -52,13 +52,11 @@ void courseManag_menue() {
 void isStudentFound() {
     int choice=getIntInput("Enter 1 to get all students in CSV or 2 to get one student : ");
     if (choice == 1) {
-     activityLog("Admin Entered STUDENTS MANAGEMENT");
         for (auto& c : all_students)
             exportStudentsCSV(&c,all_courses);
         cout<<GREEN<<"students CSV Exported SUCCESSFULLY , you can find them in the directory\n"<<RESET;
     }
     else if (choice == 2) {
-      activityLog("Admin Entered COURSES MANAGEMENT");
         bool isstudFound=false;
         string id=getStringInput("Enter Student ID to Export CSV : ");
         for (auto& c : all_students) {
@@ -208,11 +206,14 @@ void run_menuLoop() {
     while (choice != 0) {
         main_menue();
         choice=getIntInput("Enter your choice : ");
-        if (choice == 1)
-            stud_loop();
+        if (choice == 1){
+            activityLog("Admin Entered COURSES MANAGEMENT");
+            stud_loop();}
 
-        else if (choice==2)
-           course_loop();
+        else if (choice==2){
+            activityLog("Admin Entered STUDENTS MANAGEMENT");
+           course_loop();}
+
 
         else if (choice==0) cout<<"Exiting...\n";
         else   cout<<red<<"Invalid selection - Please input 1 , 2 only or press 0 to Exit!\n";
