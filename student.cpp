@@ -49,9 +49,9 @@ void addStudent(vector<Course>& courses,vector<Student>& students) {
     getline(cin, new_Student.name);
 
     cout << "Enter Academic Year: ";
-    while (!(cin >> new_Student.year)) { // if the user give input other than numbers
+    while (!(cin >> new_Student.year)|| new_Student.year > 7 || new_Student.year <= 0) { // if the user give input other than numbers
 
-        cout <<red<< "Invalid input ! \n"<<"Please , enter a number for Year: "<<RESET;
+        cout <<red<< "Invalid input ! \n"<<"Please , Enter a number for Year: "<<RESET;
 
         cin.clear();
 
