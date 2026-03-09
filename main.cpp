@@ -48,7 +48,7 @@ void courseManag_menue() {
     cout << "5. Edit Course data\n";//done
     cout << "6. Delete Course\n";//done
     cout << "7. Export Course Report to CSV\n";//done
-    cout << "8. find Course by id or title\n";
+    cout << "8. Find Course by id or title\n";
     cout << "0. Return to the main menu\n"<<RESET;
 }
 //;///////////////////////////////////////////////////////////////////////////////////////////////
