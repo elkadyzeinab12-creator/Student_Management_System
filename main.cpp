@@ -30,7 +30,7 @@ void studManag_menue() {
     cout << "1. Add new student\n";//done
     cout << "2. Delete student\n";//done
     cout << "3. Find student \n";//done
-    cout << "4. View Student Report\n";//done
+    cout << "4. View Student Report (linear search)\n";//done
     cout << "5. View all students\n";//done
     cout << "6. Edit student data\n";//done
     cout << "7. Record student Grade\n";//done
@@ -47,6 +47,7 @@ void courseManag_menue() {
     cout << "5. Edit Course data\n";//done
     cout << "6. Delete Course\n";//done
     cout << "7. Export Course Report to CSV\n";//done
+    cout << "8. find Course by id or title\n";
     cout << "0. Return to the main menu\n"<<RESET;
 }
 //;///////////////////////////////////////////////////////////////////////////////////////////////
@@ -55,7 +56,7 @@ void isStudentFound() {
     if (choice == 1) {
         for (auto &c: all_students)
             exportStudentsCSV(&c, all_courses);
-        cout << GREEN << "students CSV Exported SUCCESSFULLY , you can find them in the directory\n" << RESET;
+        cout << GREEN << "Students CSV Exported SUCCESSFULLY , you can find them in the directory\n" << RESET;
     } else if (choice == 2) {
         bool isstudFound = false;
         string id = getStringInput("Enter Student ID to Export CSV : ");
@@ -63,7 +64,7 @@ void isStudentFound() {
             if (c.id == id) {
                 isstudFound = true;
                 exportStudentsCSV(&c, all_courses);
-                cout << GREEN << "Course CSV Exported SUCCESSFULLY , you can find it in the directory\n" << RESET;
+                cout << GREEN << "Student CSV Exported SUCCESSFULLY , you can find it in the directory\n" << RESET;
                 break;
             }
         }
@@ -120,14 +121,9 @@ void stud_loop() {
                 }
             }
             break;
-            case 4: {
+            case 4:
                 //  view  student report
-                string id = getStringInput("Enter Student ID : ");
-                for (auto &c: all_students) {
-                    if (c.id == id)
-                        printStudentReport(c, all_courses);
-                }
-            }
+                findStud_by_id_or_name(all_students, all_courses);
             break;
             case 5:
                 // view all students
@@ -191,6 +187,8 @@ void course_loop() {
                  //export course csv
                  isCourseFound();
                  break;
+             case 8:
+                 findCourse_by_id_or_tit(all_students, all_courses);
              case 0:
                  break;
              default:
@@ -200,7 +198,7 @@ void course_loop() {
 }
 //=========================================================================================================
 void run_menuLoop() {
-    ll choice=-1;
+    int choice=-1;
     while (choice != 0) {
         main_menue();
         choice=getIntInput("Enter your choice : ");
@@ -217,7 +215,7 @@ void run_menuLoop() {
         }
 
         else if (choice==0) cout<<"Exiting...\n";
-        else   cout<<red<<"Invalid selection - Please input 1 , 2 only or press 0 to Exit!\n";
+        else   cout<<red<<"Invalid selection - Please input 1 to 3 only or press 0 to Exit!\n";
         }
     }
 //;///////////////////////////////////////////////////////////////////////////////////////////////

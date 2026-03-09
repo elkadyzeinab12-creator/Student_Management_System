@@ -19,4 +19,6 @@ void printStudentReport(const Student& s, const std:: vector<Course>& allCourses
 Student* findStudentById(std::vector<Student>& students, const std::string& id);
 double calculateGPA(const Student& s, const std::vector<Course>& allCourses);
 double GpaCourse(double grade);
+void findStud_by_id_or_name( std::vector<Student>& allStudents, std::vector<Course>& allCourses);
+
 #endif

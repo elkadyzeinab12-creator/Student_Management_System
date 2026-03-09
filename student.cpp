@@ -3,8 +3,8 @@
 #include "course.h"
 #include "colors.h"
 #define GREEN "\033[32m"
-#include "course.h"
 #include "storage.h"
+#include "utils.h"
 
 using namespace std;
 
@@ -112,6 +112,8 @@ void addStudent(vector<Course>& courses,vector<Student>& students) {
     cout << "____________________________________________________________________________\n";
 
     activityLog("Added new student with ID:"+new_Student.id);
+    cin.clear();
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 //------------------find student && tell user if he is not found----------------
 
@@ -148,6 +150,8 @@ void deleteStudent(vector<Student>& students, vector<Course>& courses) {
 
         activityLog("Admin faild to delete student with ID: " + id);
     }
+    cin.clear();
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 //----------------------------------Edit student info-------------------------------
 void editStudent(vector<Student>& students) {
@@ -200,6 +204,8 @@ void editStudent(vector<Student>& students) {
         }
     } while (choice != 3);
     activityLog("Admin Edited information of the Student with Id: "+id);
+    cin.clear();
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 //----------------------------------View All Students -------------------------
 void viewAllStudents( vector<Student>& students,  vector<Course>& courses) {
@@ -223,6 +229,8 @@ void viewAllStudents( vector<Student>& students,  vector<Course>& courses) {
     cout << " Total Number of Students: " << students.size() << '\n';
     cout << "____________________________________________________________________\n";
     activityLog("Admin printed all Students <on console>");
+    cin.clear();
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 }
 //----------------------------------Calculate GPA-----------------------------------
@@ -253,6 +261,8 @@ double calculateGPA(const Student& s, const vector<Course>& allCourses) {//can r
     }
     if (totalhours == 0) return 0;
     return totalpoints / totalhours;
+    cin.clear();
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 //---------------------------------Student report----------------------------------------
 void printStudentReport(const Student& s, const vector<Course>& allCourses) {
@@ -277,5 +287,49 @@ void printStudentReport(const Student& s, const vector<Course>& allCourses) {
     }
     double GPA = calculateGPA(s, allCourses);
     cout << "-GPA: " << fixed << setprecision(2) << GPA << '\n';
+    cin.clear();
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+//;////////////////////////////////////////////////////////////////////////////////////////////
+void findStud_by_id_or_name(vector<Student>& allStudents, vector<Course>& allCourses) {
+    char search='k';
+    while (search!='0') {
+        bool ok=false;
+        search=getCharInput("press # to search student by ID , * by Name , or 0 to Exit : ");
+        if (search=='#'){
+            string id = getStringInput("Enter Student ID : ");
+            for (auto &c: allStudents) {
+                if (c.id == id) {
+                    ok=true;
+                    printStudentReport(c, allCourses);
+                    search = '0';
+                    break;
+                }
+            }
+            if (!ok){ cout << "Student ID does not exists\n";
+                break; }
+
+        }
+        else if (search=='*') {
+            string Name = getStringInput("Enter Student name : ");
+            for (auto &c: allStudents) {
+                if (c.name == Name) {
+                    ok=true;
+                    printStudentReport(c, allCourses);
+                    search = '0';
+                    break;
+                }
+            }
+            if (!ok) {cout << "Student name does not exists\n";
+                break; }
+        }
+        else cout <<red<<"invalid input!\n"<<RESET;
+        if (search != '0') {
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+    }
+    cin.clear();
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 //-----------------------------------finish :)-----------------------------------------

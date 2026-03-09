@@ -151,9 +151,12 @@ file<<"\n";
         file<<"Average Grade: " <<","<< average <<"\n";
         file<<"Student number:"<<","<<Grades.size();
 
+        file.flush();
         file.close();
         activityLog("🔵Exported CSV report for course: " + course->id);
     }
+    cin.clear();
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 //=======================================================================================================
 //Export Student Report CSV
@@ -176,20 +179,23 @@ void exportStudentsCSV(Student* student , std::vector<Course>& courses ) {
                    double grade = gradepair.second;
                    string courseTitle = course.title;
                    string courseId = course.id;
-                   string statue = (gradepair.second>=60 ? "pass" : "fail");
+                   string statue = (gradepair.second>=50 ? "pass" : "fail");
                    file<<courseId<<","<<courseTitle<<","<<grade<<","<<statue<<","<<GpaCourse(gradepair.second)<<"\n";
                }
            }
        }
-    file.close();
+        file.flush();
+        file.close();
         activityLog("🔵Exported CSV report for student: " + student->id);
     }
+    cin.clear();
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 //========================================================================================================
 
 //Timestamped Activity Logger
 void activityLog(const string& message) {
-    ofstream activityLog("system_tracker.log", ios::app);//appand "كنت بحاول اهرب منها طول الوقت"
+    ofstream activityLog("system_tracker.log", ios::app);//append "كنت بحاول اهرب منها طول الوقت"
 
     if (!activityLog)
         throw runtime_error("could not open file system tracker.log");
