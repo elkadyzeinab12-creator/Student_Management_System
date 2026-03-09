@@ -202,6 +202,7 @@ void course_loop() {
              case 6:
                  //delete course
                  deleteCourse(all_courses, all_students);
+                 break;
              case 7:
                  //export course csv
                  isCourseFound();

@@ -38,8 +38,7 @@ void addCourse(vector<Course>& courses) {
 
 }
 //-----------------find course && tell user if he is not found--------------------
-Course* findCourseById(const
-    vector<Course>& courses, const string& id) {
+Course* findCourseById(const vector<Course>& courses, const string& id) {
     for (auto& c : courses) {
         if (c.id == id) {
             return const_cast<Course*>(&c);
@@ -150,10 +149,7 @@ void deleteCourse(vector<Course>& courses, vector<Student>& students) {
 }
 //----------------------------------Edit Course info-------------------------------
 void editCourse(vector<Course>& courses) {
-    string id;
-    cout << "Enter Course ID to edit: ";
-    cin >> id;
-
+    string id=getStringInput("Enter Course ID to edit: ");
     Course* cPtr = findCourseById(courses, id);
     if (cPtr == nullptr) {
         cout << red << " Error: Course with ID ( " << id << " ) was not found!\n" << RESET;
@@ -170,27 +166,16 @@ void editCourse(vector<Course>& courses) {
         cout << "3. Save & Exit\n";
         cout << "Enter your choice: ";
 
-        while (!(cin >> choice)) {
-            cout << red<<"Invalid input! Please enter a number (1-3): "<<RESET;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        }
-
+        choice = getIntInput("Enter your choice: ");
         switch (choice) {
             case 1:
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "Enter New Title: ";
-                getline(cin, cPtr->title);
+
+               cPtr->title =getStringInput("Enter New Title: ") ;
                 cout <<GREEN<< "Title updated successfully!\n"<<RESET;
                 break;
 
             case 2:
-                cout << "Enter New Credit Hours: ";
-                while (!(cin >> cPtr->credit_hours)) {
-                    cout <<red<< "Invalid! Please enter a number for Credits: "<<RESET;
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                }
+             cPtr->credit_hours =getIntInput("Enter New Credit Hours: ") ;
                 cout << GREEN<<"Credit hours updated successfully!\n";
                 break;
 
