@@ -35,6 +35,7 @@ void studManag_menue() {
     cout << "6. Edit student data\n";//done
     cout << "7. Record student Grade\n";//done
     cout << "8. Export Student Report to CSV\n";//done
+    cout << "9. Register student in course\n";
     cout << "0. Return to the main menu\n"<<RESET;
 }
 //;///////////////////////////////////////////////////////////////////////////////////////////////
@@ -141,6 +142,26 @@ void stud_loop() {
                 //export student csv
                 isStudentFound();
                 break;
+            case 9: {
+                //Register student in course
+                string Student_ID, Course_ID;
+                cout << "Enter Student ID: ";
+                cin >> Student_ID;
+                cout << "Enter Course ID: ";
+                cin >> Course_ID;
+                Student* sPtr = findStudentById(all_students, Student_ID);
+                Course* cPtr = findCourseById(all_courses, Course_ID);
+                if (sPtr != nullptr && cPtr != nullptr) {
+                    register_Student_in_course(sPtr, cPtr);
+                }
+                else {
+                    if (sPtr == nullptr)
+                        cout << red << "Error: Student ID (" << Student_ID << ") not found!" << RESET << '\n';
+                    if (cPtr == nullptr)
+                        cout << red << "Error: Course ID (" << Course_ID << ") not found!" << RESET << '\n';
+                }
+                break;
+            }
             case 0:
                 break;
             default:

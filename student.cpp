@@ -245,7 +245,7 @@ double GpaCourse(double grade) {//calculate takdeer el madaa
     if (grade >= 50) return  2;
     return 0;
 }
-//;/////////////////////////////////////////////////////////////////////////////////////////////
+//----------------------------------------------------------------------------------
 double calculateGPA(const Student& s, const vector<Course>& allCourses) {//can return value to be used in another situations
     double totalpoints = 0;
     int totalhours = 0;
@@ -289,6 +289,18 @@ void printStudentReport(const Student& s, const vector<Course>& allCourses) {
     cout << "-GPA: " << fixed << setprecision(2) << GPA << '\n';
     cin.clear();
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+//----------------------------------RegisterStudentInCourse------------------------------------
+void register_Student_in_course(Student* s, Course* c) {
+    for (const string& id : s->enrolledCourseIds) {
+        if (id == c->id) {
+            cout << red <<"Error: Student is already enrolled in " << c->title << RESET << '\n';
+            return;
+        }
+    }
+    s->enrolledCourseIds.push_back(c->id);
+    c->grades.push_back(make_pair(s->id, 0));
+    cout << GREEN << "Successfully enrolled < " << s->name << " > in < " << c->title <<" >" RESET << endl;
 }
 //;////////////////////////////////////////////////////////////////////////////////////////////
 void findStud_by_id_or_name(vector<Student>& allStudents, vector<Course>& allCourses) {

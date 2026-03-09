@@ -20,5 +20,5 @@ Student* findStudentById(std::vector<Student>& students, const std::string& id);
 double calculateGPA(const Student& s, const std::vector<Course>& allCourses);
 double GpaCourse(double grade);
 void findStud_by_id_or_name( std::vector<Student>& allStudents, std::vector<Course>& allCourses);
-
+void register_Student_in_course(Student* s, Course* c);
 #endif

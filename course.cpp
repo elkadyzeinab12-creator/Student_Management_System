@@ -327,7 +327,4 @@ void findCourse_by_id_or_tit(vector<Student>& allStudents, vector<Course>& allCo
     cin.clear();
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
-//;//////////////////////////////////////////////////////////////////////////////////////
-void register_Student_in_course(std::vector<Student>& students, std::vector<Course>& courses){}
-
 //-----------------------------------finish :)-----------------------------------------

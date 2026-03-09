@@ -21,5 +21,4 @@ void viewAllCourses(const std::vector<Course>& courses);
 void editCourse(std::vector<Course>& courses);
 void courseStatistics(Course* courseptr);
 void deleteCourse(std::vector<Course>& courses, std::vector<Student>& students);
-void register_Student_in_course(std::vector<Student>& students, std::vector<Course>& courses);
 #endif
