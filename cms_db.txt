@@ -1,4 +1,4 @@
-19
+20
 30101011234567
 Ahmed Hassan
 1
@@ -119,6 +119,11 @@ NS101
 Samah Soliman
 9
 0
+12345678997634
+Ali salama
+7
+1
+AI301
 9
 CS101
 Intro to Computer Science

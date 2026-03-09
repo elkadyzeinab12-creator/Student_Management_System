@@ -21,6 +21,7 @@ void main_menue() {
     cout<<"Main Menu:\n";
     cout<<"1. STUDENTS MANAGEMENT\n";
     cout<<"2. COURSES MANAGEMENT\n";
+    cout<<"3. View Activity Log\n";
     cout<<"0. EXit and save \n"<<RESET;
 }
 //;///////////////////////////////////////////////////////////////////////////////////////////////
@@ -50,26 +51,24 @@ void courseManag_menue() {
 }
 //;///////////////////////////////////////////////////////////////////////////////////////////////
 void isStudentFound() {
-    int choice=getIntInput("Enter 1 to get all students in CSV or 2 to get one student : ");
+    int choice = getIntInput("Enter 1 to get all students in CSV or 2 to get one student : ");
     if (choice == 1) {
-        for (auto& c : all_students)
-            exportStudentsCSV(&c,all_courses);
-        cout<<GREEN<<"students CSV Exported SUCCESSFULLY , you can find them in the directory\n"<<RESET;
-    }
-    else if (choice == 2) {
-        bool isstudFound=false;
-        string id=getStringInput("Enter Student ID to Export CSV : ");
-        for (auto& c : all_students) {
+        for (auto &c: all_students)
+            exportStudentsCSV(&c, all_courses);
+        cout << GREEN << "students CSV Exported SUCCESSFULLY , you can find them in the directory\n" << RESET;
+    } else if (choice == 2) {
+        bool isstudFound = false;
+        string id = getStringInput("Enter Student ID to Export CSV : ");
+        for (auto &c: all_students) {
             if (c.id == id) {
-                isstudFound=true;
-                exportStudentsCSV(&c,all_courses);
-                cout<<GREEN<<"Course CSV Exported SUCCESSFULLY , you can find it in the directory\n"<<RESET;
+                isstudFound = true;
+                exportStudentsCSV(&c, all_courses);
+                cout << GREEN << "Course CSV Exported SUCCESSFULLY , you can find it in the directory\n" << RESET;
                 break;
             }
         }
-        if (!isstudFound) cout<<red<<"Stud Not Found\n"<<RESET;
-    }
-    else  cout<<red<<"Invalid selection - Please input 1  or 2 \n";
+        if (!isstudFound) cout << red << "Stud Not Found\n" << RESET;
+    } else cout << red << "Invalid selection - Please input 1  or 2 \n";
 }
 //;//////////////////////////////////////////////////////////////////////////////////////////////
 void isCourseFound() {
@@ -78,7 +77,7 @@ int choice=getIntInput("Enter 1 to get all courses in CSV or 2 to get one course
 
         for (auto& c : all_courses)
             exportCourseCSV(&c,all_students);
-        cout<<GREEN<<"Courses CSV Exported SUCCESSFULY , you can find them in the directory\n"<<RESET;
+        cout<<GREEN<<"Courses CSV Exported SUCCESSFULLY , you can find them in the directory\n"<<RESET;
     }
     else if (choice == 2) {
          bool isCourseFound=false;
@@ -97,15 +96,15 @@ int choice=getIntInput("Enter 1 to get all courses in CSV or 2 to get one course
 }
 //;/////////////////////////////////////////////////////////////////////////////////////////////
 void stud_loop() {
-    int selection=-1;
+    int selection = -1;
     while (selection != 0) {
         studManag_menue();
-        selection=getIntInput("Enter your selection : ");
+        selection = getIntInput("Enter your selection : ");
 
         switch (selection) {
             case 1:
                 //add student
-                addStudent(all_courses,all_students);
+                addStudent(all_courses, all_students);
                 break;
             case 2:
                 //delete student
@@ -113,27 +112,26 @@ void stud_loop() {
                 break;
             case 3: {
                 //  search student by id
-                Student* ptr = findStudentById(all_students, getStringInput("Enter Student ID: "));
+                Student *ptr = findStudentById(all_students, getStringInput("Enter Student ID: "));
                 if (ptr != nullptr) {
-                    cout << "Student Name: " <<PURPLE<< ptr->name << "\n"<<RESET;
+                    cout << "Student Name: " << PURPLE << ptr->name << "\n" << RESET;
                 } else {
-                    cout <<red<< "Error: Student not found!\n"<<RESET;
+                    cout << red << "Error: Student not found!\n" << RESET;
                 }
             }
-                break;
+            break;
             case 4: {
                 //  view  student report
-               string id=getStringInput("Enter Student ID : ");
-                for (auto& c : all_students) {
+                string id = getStringInput("Enter Student ID : ");
+                for (auto &c: all_students) {
                     if (c.id == id)
-                        printStudentReport(c,all_courses);
+                        printStudentReport(c, all_courses);
                 }
-
             }
-                break;
+            break;
             case 5:
                 // view all students
-                viewAllStudents(all_students,all_courses);
+                viewAllStudents(all_students, all_courses);
                 break;
             case 6:
                 //edit student data
@@ -150,55 +148,55 @@ void stud_loop() {
             case 0:
                 break;
             default:
-                cout<<red<<"Invalid selection - Please input 1 to 8 only or press 0 to Exit!\n";
-
+                cout << red << "Invalid selection - Please input 1 to 8 only or press 0 to Exit!\n";
         }
     }
 }
+
 //;///////////////////////////////////////////////////////////////////////////////////////////////
 void course_loop() {
      int selection=-1;
-            while (selection!=0) {
-                courseManag_menue();
-                selection=getIntInput("Enter your selection : ");
-                switch (selection) {
-                      case 1:
-                         // add course
-                            addCourse(all_courses);
-                          break;
-                      case 2: {
-                          // search course data
-                           Course* ptr = findCourseById(all_courses,getStringInput("Enter course ID : "));
-                           if (ptr != nullptr)
-                               cout<<"Course name : "<<PURPLE<< ptr->title<< "\n"<<RESET;
+     while (selection != 0) {
+         courseManag_menue();
+         selection = getIntInput("Enter your selection : ");
+         switch (selection) {
+             case 1:
+                 // add course
+                 addCourse(all_courses);
+                 break;
+             case 2: {
+                 // search course data
+                 Course *ptr = findCourseById(all_courses, getStringInput("Enter course ID : "));
+                 if (ptr != nullptr)
+                     cout << "Course name : " << PURPLE << ptr->title << "\n" << RESET;
 
-                           else  cout <<red<< "Error: Course not found!\n"<<RESET;
-                             }
-                          break;
-                      case 3:
-                          printCourseReport(all_courses, all_students);
-                        break;
-                      case 4:
-                        //view all courses
-                         viewAllCourses(all_courses);
-                        break;
-                      case 5:
-                        // Edit course data
-                        editCourse(all_courses);
-                        break;
-                      case 6:
-                        //delete course
-                        deleteCourse(all_courses, all_students);
-                      case 7:
-                        //export course csv
-                        isCourseFound();
-                        break;
-                      case 0:
-                        break;
-                    default:
-                cout<<red<<"Invalid selection - Please input 1 to 7 only or press 0 to Exit!\n";
-                }
-            }
+                 else cout << red << "Error: Course not found!\n" << RESET;
+             }
+             break;
+             case 3:
+                 printCourseReport(all_courses, all_students);
+                 break;
+             case 4:
+                 //view all courses
+                 viewAllCourses(all_courses);
+                 break;
+             case 5:
+                 // Edit course data
+                 editCourse(all_courses);
+                 break;
+             case 6:
+                 //delete course
+                 deleteCourse(all_courses, all_students);
+             case 7:
+                 //export course csv
+                 isCourseFound();
+                 break;
+             case 0:
+                 break;
+             default:
+                 cout << red << "Invalid selection - Please input 1 to 7 only or press 0 to Exit!\n";
+         }
+     }
 }
 //=========================================================================================================
 void run_menuLoop() {
@@ -213,7 +211,10 @@ void run_menuLoop() {
         else if (choice==2){
             activityLog("Admin Entered STUDENTS MANAGEMENT");
            course_loop();}
-
+        else if (choice==3) {
+            activityLog("Admin Viewed Activity Log");
+            ViewActivityLog( "system_tracker.log");
+        }
 
         else if (choice==0) cout<<"Exiting...\n";
         else   cout<<red<<"Invalid selection - Please input 1 , 2 only or press 0 to Exit!\n";
@@ -229,7 +230,6 @@ int main() {
     dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
     SetConsoleMode(hOut, dwMode);
 #endif
-
 
     try {
         loadDatabase(all_students,all_courses,"cms_db.txt");

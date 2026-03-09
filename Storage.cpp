@@ -48,7 +48,7 @@ void saveDatabase(const std::vector<Student>& students,
             }
             saveDatabase.close();
             cout<<GREEN<<"New data saved SUCCESSFULLY\n";
-            activityLog("new data was save");
+            activityLog("new data was saved");
         }
 
     }
@@ -201,5 +201,24 @@ void activityLog(const string& message) {
         activityLog << "[" << timeStr << "] " << message <<endl;
         activityLog.flush();
         activityLog.close();
+    }
+}
+//;/////////////////////////////////////////////////////////////////////////////////////
+//View Activity Log
+void ViewActivityLog(const std::string& fileName) {
+    fstream activityLog;
+    activityLog.open("system_tracker.log", ios::in);//WRITE
+    if (! activityLog.is_open())
+        throw runtime_error("could not open file system tracker.log");
+    if (activityLog.is_open()) {
+        cout <<MAGENTA<< "---------------------------------------------------------------\n";
+        cout << "                System Activity Log       "<< endl;
+        cout << "---------------------------------------------------------------\n"<<RESET;
+        string lines;
+        while (getline(activityLog, lines)) {
+            cout << lines << endl;
+        }
+        activityLog.close();
+        cout<<MAGENTA<<"---------------------------------------------------------------\n";
     }
 }

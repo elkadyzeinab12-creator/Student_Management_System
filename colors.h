@@ -11,6 +11,7 @@
 #define LIGHT_PURPLE "\033[1;35m"
 #define cyan "\033[36m"
 #define YELLOW "\033[36m"
+#define MAGENTAd "\033[35m"
 #define MAGENTA "\033[1;35m"
 #define BB "\033[1;34m"
 #define WHITE "\033[1;37m"

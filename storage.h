@@ -15,4 +15,5 @@ void loadDatabase(std::vector<Student>& students,
 void exportCourseCSV(Course* course, std::vector<Student>& students);
 void exportStudentsCSV(Student* student, std::vector<Course>& courses);
 void activityLog(const std::string& message);
+void ViewActivityLog(const std::string& fileName);
 #endif
