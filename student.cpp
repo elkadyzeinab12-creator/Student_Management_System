@@ -311,7 +311,10 @@ void findStud_by_id_or_name(vector<Student>& allStudents, vector<Course>& allCou
 
         }
         else if (search=='*') {
-            string Name = getStringInput("Enter Student name : ");
+            string Name;
+            cout << "Enter Student Full Name: ";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            getline(cin, Name);
             for (auto &c: allStudents) {
                 if (c.name == Name) {
                     ok=true;
