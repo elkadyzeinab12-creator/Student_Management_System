@@ -25,7 +25,8 @@ g++ main.cpp student.cpp course.cpp Storage.cpp utils.cpp -o StudentSystem
 ./StudentSystem
 
 
-** Project Structure**
+**Project Structure**
+
 main.cpp: The entry point and UI logic.
 
 colors.h: Custom header for terminal color support.
