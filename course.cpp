@@ -38,8 +38,7 @@ void addCourse(vector<Course>& courses) {
     cout << "  Credit Hours: " << new_Course.credit_hours << endl;
     cout << "____________________________________________________________________________\n"<<RESET;
     activityLog("Admin added course with ID: "+new_Course.id);
-    cin.clear();
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
 }
 //-----------------find course && tell user if he is not found--------------------
 Course* findCourseById(const
@@ -101,8 +100,6 @@ void recordGrade(vector<Course>& courses, vector<Student>& students) {
     cout << "____________________________________________________________________\n"<<RESET;
 
     activityLog("new grade was recorded");
-    cin.clear();
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 //------------------------------Print Course Report----------------------------------------
 void printCourseReport(vector<Course>& courses, vector<Student>& students) {
@@ -125,8 +122,7 @@ void printCourseReport(vector<Course>& courses, vector<Student>& students) {
     }
     cout << "____________________________________________________________________\n";
     activityLog("Admin Printed course report");
-    cin.clear();
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
 }
 //-----------------------------------DELETE COURSE---------------------------------------
 void deleteCourse(vector<Course>& courses, vector<Student>& students) {
@@ -154,8 +150,6 @@ void deleteCourse(vector<Course>& courses, vector<Student>& students) {
         cout << red << "Error: Course with ID ( " << id << " ) was not found!\n" << RESET;
         activityLog("Admin faild to delete Course with ID: " + id);
     }
-    cin.clear();
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 //----------------------------------Edit Course info-------------------------------
 void editCourse(vector<Course>& courses) {
@@ -214,8 +208,7 @@ void editCourse(vector<Course>& courses) {
         }
     } while (choice != 3);
     activityLog("Admin Edited information of he Course with Id: "+id);
-    cin.clear();
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
 }
 //----------------------------------View All Courses ----------------------------
 void viewAllCourses(const vector<Course>& courses) {
@@ -238,8 +231,7 @@ void viewAllCourses(const vector<Course>& courses) {
     cout << " Total Number of Courses: " << courses.size() <<'\n';
     cout << "____________________________________________________________________\n";
     activityLog("Admin printed all courses <on console>");
-    cin.clear();
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
 }
 //---------------------------------CourseStatistics---------------------------------
 void courseStatistics(Course* courseptr) {
@@ -260,8 +252,7 @@ void courseStatistics(Course* courseptr) {
     cout << "Highest Grade: " << mxGrade << '\n';
     cout << "Lowest Grade:  " << mnGrade << '\n';
     cout << "Average Grade: " << fixed << setprecision(2) << average << '\n';
-    cin.clear();
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
 }
 //;///////////////////////////////////////////////////////////////////////////////////
 void findCourse_by_id_or_tit(vector<Student>& allStudents, vector<Course>& allCourses) {
@@ -290,7 +281,7 @@ void findCourse_by_id_or_tit(vector<Student>& allStudents, vector<Course>& allCo
                     break;
                 }
             }
-            if (!ok){ cout << "Course ID does not exists\n";
+            if (!ok){ cout <<red<< "Course ID does not exists\n"<<RESET;
                 break; }
 
         }
@@ -315,16 +306,14 @@ void findCourse_by_id_or_tit(vector<Student>& allStudents, vector<Course>& allCo
                     break;
                 }
             }
-            if (!ok) {cout << "Course Title does not exists\n";
+            if (!ok) {cout <<red<< "Course Title does not exists\n"<<RESET;
                 break; }
         }
         else cout <<red<<"invalid input!\n"<<RESET;
         if (search != '0') {
-            cin.clear();
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            // cin.clear();
+            // cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
     }
-    cin.clear();
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 //-----------------------------------finish :)-----------------------------------------

@@ -145,10 +145,8 @@ void stud_loop() {
             case 9: {
                 //Register student in course
                 string Student_ID, Course_ID;
-                cout << "Enter Student ID: ";
-                cin >> Student_ID;
-                cout << "Enter Course ID: ";
-                cin >> Course_ID;
+                 Student_ID=getStringInput("Enter Student ID: ");
+                 Course_ID =getStringInput("Enter Course ID: ");
                 Student* sPtr = findStudentById(all_students, Student_ID);
                 Course* cPtr = findCourseById(all_courses, Course_ID);
                 if (sPtr != nullptr && cPtr != nullptr) {

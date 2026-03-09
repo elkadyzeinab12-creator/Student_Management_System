@@ -155,9 +155,7 @@ void deleteStudent(vector<Student>& students, vector<Course>& courses) {
 }
 //----------------------------------Edit student info-------------------------------
 void editStudent(vector<Student>& students) {
-    string id;
-    cout << "Enter Student ID to edit: ";
-    cin >> id;
+    string id=getStringInput("Enter Student ID to edit: ");
     Student* sPtr = findStudentById(students, id);
     if (sPtr == nullptr) {
         cout <<red<< " Error: Student with ID ( " << id << " ) was not found!\n"<<RESET;
@@ -171,12 +169,8 @@ void editStudent(vector<Student>& students) {
         cout << "1. Edit Name\n";
         cout << "2. Edit Academic Year\n";
         cout << "3. Save & Exit\n";
-        cout << "Enter your choice: ";
-        while (!(cin >> choice)) {
-            cout <<red<< "Invalid input! Please enter a number (1-3): "<<RESET;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        }
+
+        choice=getIntInput("Enter your choice: ");
         switch (choice) {
             case 1:
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -204,8 +198,6 @@ void editStudent(vector<Student>& students) {
         }
     } while (choice != 3);
     activityLog("Admin Edited information of the Student with Id: "+id);
-    cin.clear();
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 //----------------------------------View All Students -------------------------
 void viewAllStudents( vector<Student>& students,  vector<Course>& courses) {
@@ -229,8 +221,6 @@ void viewAllStudents( vector<Student>& students,  vector<Course>& courses) {
     cout << " Total Number of Students: " << students.size() << '\n';
     cout << "____________________________________________________________________\n";
     activityLog("Admin printed all Students <on console>");
-    cin.clear();
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 }
 //----------------------------------Calculate GPA-----------------------------------
@@ -261,8 +251,7 @@ double calculateGPA(const Student& s, const vector<Course>& allCourses) {//can r
     }
     if (totalhours == 0) return 0;
     return totalpoints / totalhours;
-    cin.clear();
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
 }
 //---------------------------------Student report----------------------------------------
 void printStudentReport(const Student& s, const vector<Course>& allCourses) {
@@ -287,8 +276,7 @@ void printStudentReport(const Student& s, const vector<Course>& allCourses) {
     }
     double GPA = calculateGPA(s, allCourses);
     cout << "-GPA: " << fixed << setprecision(2) << GPA << '\n';
-    cin.clear();
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
 }
 //----------------------------------RegisterStudentInCourse------------------------------------
 void register_Student_in_course(Student* s, Course* c) {
@@ -318,7 +306,7 @@ void findStud_by_id_or_name(vector<Student>& allStudents, vector<Course>& allCou
                     break;
                 }
             }
-            if (!ok){ cout << "Student ID does not exists\n";
+            if (!ok){ cout <<red<< "Student ID does not exists\n"<<RESET;
                 break; }
 
         }
@@ -332,7 +320,7 @@ void findStud_by_id_or_name(vector<Student>& allStudents, vector<Course>& allCou
                     break;
                 }
             }
-            if (!ok) {cout << "Student name does not exists\n";
+            if (!ok) {cout <<red<< "Student name does not exists\n"<<RESET;
                 break; }
         }
         else cout <<red<<"invalid input!\n"<<RESET;
@@ -341,7 +329,6 @@ void findStud_by_id_or_name(vector<Student>& allStudents, vector<Course>& allCou
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
     }
-    cin.clear();
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
 }
 //-----------------------------------finish :)-----------------------------------------

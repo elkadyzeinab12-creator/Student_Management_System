@@ -155,8 +155,6 @@ file<<"\n";
         file.close();
         activityLog("🔵Exported CSV report for course: " + course->id);
     }
-    cin.clear();
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 //=======================================================================================================
 //Export Student Report CSV
@@ -188,8 +186,6 @@ void exportStudentsCSV(Student* student , std::vector<Course>& courses ) {
         file.close();
         activityLog("🔵Exported CSV report for student: " + student->id);
     }
-    cin.clear();
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 //========================================================================================================
 
