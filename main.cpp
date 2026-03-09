@@ -205,11 +205,11 @@ void run_menuLoop() {
         main_menue();
         choice=getIntInput("Enter your choice : ");
         if (choice == 1){
-            activityLog("Admin Entered COURSES MANAGEMENT");
+            activityLog("Admin Entered STUDENTS MANAGEMENT");
             stud_loop();}
 
         else if (choice==2){
-            activityLog("Admin Entered STUDENTS MANAGEMENT");
+            activityLog("Admin Entered COURSES MANAGEMENT");
            course_loop();}
         else if (choice==3) {
             activityLog("Admin Viewed Activity Log");
