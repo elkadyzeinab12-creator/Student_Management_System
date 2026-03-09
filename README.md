@@ -21,6 +21,7 @@ Build and Run main.cpp.
 If you prefer the command line, use the following command:
 
 Bash
+
 g++ main.cpp student.cpp course.cpp Storage.cpp utils.cpp -o StudentSystem
 ./StudentSystem
 
