@@ -10,24 +10,21 @@ using namespace std;
 void addCourse(vector<Course>& courses) {
 
     Course new_Course;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');//clear any previous input or enter
     cout << BLUE << "----------------------------< ADD NEW COURSE >-------------------------------\n";
-    cout << "Enter Course ID (Ex:CS101): ";
-    getline(cin, new_Course.id);
+   new_Course.id=getStringInput("Enter Course ID (Ex:CS101): ");
 
     if (findCourseById(courses, new_Course.id) != nullptr) {
         cout << " Error: Course with code ( " << new_Course.id << " ) already exists!\n";
         return;
     }
 
-    cout << "Enter Course Title: ";
-    getline(cin, new_Course.title);
+    new_Course.title=getStringInput("Enter Course Title: ");
 
     cout << "Enter Credit Hours (1-4) : "<<RESET;
-    while (!(cin >> new_Course.credit_hours) || new_Course.credit_hours <= 0 ||new_Course.credit_hours >4) {
-        cout <<red << "Invalid input!\n"<<"Please , Enter valid Credit hours: "<<RESET;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    new_Course.credit_hours = getIntInput("");
+
+    while ( new_Course.credit_hours <= 0 ||new_Course.credit_hours >4) {
+        new_Course.credit_hours = getIntInput(string(red) + "Invalid! Enter valid Credit hours (1-4): "  + RESET);
     }
     courses.push_back(new_Course);
     cout <<GREEN<< "____________________________________________________________________________\n";
