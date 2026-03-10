@@ -268,11 +268,13 @@ void findCourse_by_id_or_tit(vector<Student>& allStudents, vector<Course>& allCo
 
         }
         else if (search=='*') {
-            string Name = getStringInput("Enter Course Title : ");
+            cout << "Enter Course Title : ";
+            string Name;
+            getline(cin >> ws, Name);
             for (auto &c: allCourses) {
                 if (c.title == Name) {
                     ok=true;
-                    Course* courseptr = findCourseById(allCourses, Name);
+                    Course* courseptr = findCourseById(allCourses,c.id);
                     cout << "____________________________________________________________________\n";
                     cout << "                          REPORT FOR COURSE                          \n";
                     cout << "____________________________________________________________________\n";
