@@ -10,6 +10,9 @@ std::string getStringInput(const std::string& prompt);
 char getCharInput(const std::string& prompt);
 template <typename T>
 T findMax(const std::vector<T>& items) {
+    if (items.empty()) {
+        return 0;
+    }
     T max = items[0];
     for (int i = 1; i < items.size(); i++) {
         if (items[i] > max) {
@@ -20,6 +23,9 @@ T findMax(const std::vector<T>& items) {
 }
 template <typename V>
 V findMin(const std::vector<V>& items) {
+    if (items.empty()) {
+        return 0;
+    }
     V min = items[0];
     for (int i = 1; i < items.size(); i++)
         if (items[i] < min)
