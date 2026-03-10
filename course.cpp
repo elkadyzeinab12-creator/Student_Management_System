@@ -176,6 +176,9 @@ void editCourse(vector<Course>& courses) {
 
             case 2:
              cPtr->credit_hours =getIntInput("Enter New Credit Hours: ") ;
+                while ( cPtr->credit_hours <= 0 ||cPtr->credit_hours >4) {
+                    cPtr->credit_hours= getIntInput(string(red) + "Invalid! Enter valid Credit hours (1-4): "  + RESET);
+                }
                 cout << GREEN<<"Credit hours updated successfully!\n";
                 break;
 

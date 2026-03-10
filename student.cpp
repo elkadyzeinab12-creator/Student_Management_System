@@ -178,15 +178,20 @@ void editStudent(vector<Student>& students) {
                 getline(cin, sPtr->name);
                 cout <<GREEN<< "Name updated successfully!\n"<<GREEN;
                 break;
-            case 2:
+            case 2: {
                 cout << "Enter New Academic Year: ";
-                while (!(cin >> sPtr->year)) {
-                    cout << red<<"Invalid! Please enter a number for Year: "<<RESET;
+                while (!(cin >> sPtr->year)|| sPtr->year > 7 || sPtr->year <= 0) {
+
+                    cout <<red<< "Invalid input ! \n"<<"Please , Enter a number for Year: "<<RESET;
+
                     cin.clear();
+
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 }
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout <<GREEN<< "Year updated successfully!\n"<<RESET;
                 break;
+            }
             case 3:
                 cout << GREEN<<"____________________________________________________________________\n";
                 cout << "                       CHANGES SAVED SUCCESSFULLY                   \n";
