@@ -209,6 +209,7 @@ void course_loop() {
                  break;
              case 8:
                  findCourse_by_id_or_tit(all_students, all_courses);
+                 break;
              case 0:
                  break;
              default:
