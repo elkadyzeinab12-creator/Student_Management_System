@@ -98,8 +98,7 @@ void recordGrade(vector<Course>& courses, vector<Student>& students) {
     activityLog("new grade was recorded");
 }
 //------------------------------Print Course Report----------------------------------------
-void printCourseReport(vector<Course>& courses, vector<Student>& students) {
-    string id = getStringInput("Enter Course ID: ");
+void printCourseReport(vector<Course>& courses, vector<Student>& students,const string& id) {
     Course* courseptr = findCourseById(courses, id);
 
     if (courseptr == nullptr) {
@@ -250,18 +249,7 @@ void findCourse_by_id_or_tit(vector<Student>& allStudents, vector<Course>& allCo
             for (auto &c: allCourses) {
                 if (c.id == id) {
                     ok=true;
-                    Course* courseptr = findCourseById(allCourses, id);
-                    cout << "____________________________________________________________________\n";
-                    cout << "                          REPORT FOR COURSE                          \n";
-                    cout << "____________________________________________________________________\n";
-                    cout << "      <"<<courseptr->title << "  (" << courseptr->id << ") >         \n";
-                    if (courseptr->grades.empty()) {
-                        cout << red <<"No students have been graded for this course yet\n" <<RESET;
-                    } else {
-                        cout << "____________________________________________________________________\n";
-                        courseStatistics(courseptr);
-                    }
-                    cout << "____________________________________________________________________\n";
+                    printCourseReport(allCourses,allStudents,id);
                     search = '0';
                     break;
                 }
@@ -277,18 +265,7 @@ void findCourse_by_id_or_tit(vector<Student>& allStudents, vector<Course>& allCo
             for (auto &c: allCourses) {
                 if (c.title == Name) {
                     ok=true;
-                    Course* courseptr = findCourseById(allCourses,c.id);
-                    cout << "____________________________________________________________________\n";
-                    cout << "                          REPORT FOR COURSE                          \n";
-                    cout << "____________________________________________________________________\n";
-                    cout << "      <"<<courseptr->title << "  (" << courseptr->id << ") >         \n";
-                    if (courseptr->grades.empty()) {
-                        cout << red <<"No students have been graded for this course yet\n" <<RESET;
-                    } else {
-                        cout << "____________________________________________________________________\n";
-                        courseStatistics(courseptr);
-                    }
-                    cout << "____________________________________________________________________\n";
+                    printCourseReport(allCourses,allStudents,c.id);
                     search = '0';
                     break;
                 }

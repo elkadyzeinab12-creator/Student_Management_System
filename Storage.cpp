@@ -13,7 +13,7 @@ void saveDatabase(const std::vector<Student>& students,
                   const std::string& filename){
 
         fstream saveDatabase;
-        saveDatabase.open("cms_db.txt", ios::out);//write
+        saveDatabase.open(filename, ios::out);//write
 
         if (!saveDatabase)
             throw runtime_error("Could not open file for saving new data");
@@ -58,7 +58,7 @@ void loadDatabase(std::vector<Student>& students,
                   std::vector<Course>& courses,
                   const std::string& filename) {
     fstream data_base;
-    data_base.open("cms_db.txt", ios::in);//read
+    data_base.open(filename,ios::in);//read
     if (!data_base)
         throw runtime_error("File not found!");
 
@@ -130,7 +130,7 @@ void exportCourseCSV(Course* course, std::vector<Student>& students) {
                     double grade = course->grades[i].second;
                     string student_name = students[j].name;
                     string student_id = students[j].id;
-                    string statue = (grade>=60 ?"pass" :"fail");
+                    string statue = (grade>=50 ?"pass" :"fail");
                     file <<"'"<< student_id << "'," << student_name << "," << grade <<","<<statue<<","<<GpaCourse(grade)<<"\n";
                 }
             }
@@ -153,7 +153,7 @@ file<<"\n";
 
         file.flush();
         file.close();
-        activityLog("🔵Exported CSV report for course: " + course->id);
+        activityLog("Exported CSV report for course: " + course->id);
     }
 }
 //=======================================================================================================
@@ -184,7 +184,7 @@ void exportStudentsCSV(Student* student , std::vector<Course>& courses ) {
        }
         file.flush();
         file.close();
-        activityLog("🔵Exported CSV report for student: " + student->id);
+        activityLog("Exported CSV report for student: " + student->id);
     }
 }
 //========================================================================================================
@@ -204,6 +204,7 @@ void activityLog(const string& message) {
         activityLog.flush();
         activityLog.close();
     }
+
 }
 //;/////////////////////////////////////////////////////////////////////////////////////
 //View Activity Log

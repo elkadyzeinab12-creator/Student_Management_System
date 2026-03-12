@@ -16,7 +16,7 @@ void addCourse(std::vector<Course>& courses);
 Course* findCourseById(const std::vector<Course>& courses, const std::string& id);
 void recordGrade(std::vector<Course>& courses,std::vector<class Student>& students);
 void findCourse_by_id_or_tit(std::vector<Student>& allStudents,std:: vector<Course>& allCourses);
-void printCourseReport(std::vector<Course>& courses,std::vector<class Student>& students);
+void printCourseReport(std::vector<Course>& courses,std::vector<class Student>& students,const std:: string& id);
 void viewAllCourses(const std::vector<Course>& courses);
 void editCourse(std::vector<Course>& courses);
 void courseStatistics(Course* courseptr);

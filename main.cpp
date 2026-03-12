@@ -11,8 +11,6 @@
 using namespace std;
 #define ll long long
 
-vector<Student> all_students ;
-vector<Course> all_courses;
 
 void main_menue() {
      cout<<BLUE<<"____________________________________________________________________________\n";
@@ -52,7 +50,7 @@ void courseManag_menue() {
     cout << "0. Return to the main menu\n"<<RESET;
 }
 //;///////////////////////////////////////////////////////////////////////////////////////////////
-void isStudentFound() {
+void isStudentFound(vector<Student>& all_students, vector<Course>& all_courses) {
     int choice = getIntInput("Enter 1 to get all students in CSV or 2 to get one student : ");
     if (choice == 1) {
         for (auto &c: all_students)
@@ -73,7 +71,7 @@ void isStudentFound() {
     } else cout << red << "Invalid selection - Please input 1  or 2 \n";
 }
 //;//////////////////////////////////////////////////////////////////////////////////////////////
-void isCourseFound() {
+void isCourseFound(vector<Student>& all_students, vector<Course>& all_courses) {
 int choice=getIntInput("Enter 1 to get all courses in CSV or 2 to get one course : ");
     if (choice == 1) {
 
@@ -97,7 +95,7 @@ int choice=getIntInput("Enter 1 to get all courses in CSV or 2 to get one course
     else  cout<<red<<"Invalid selection - Please input 1  or 2 \n";
 }
 //;/////////////////////////////////////////////////////////////////////////////////////////////
-void stud_loop() {
+void stud_loop(vector<Student>& all_students, vector<Course>& all_courses) {
     int selection = -1;
     while (selection != 0) {
         studManag_menue();
@@ -140,7 +138,7 @@ void stud_loop() {
                 break;
             case 8:
                 //export student csv
-                isStudentFound();
+                isStudentFound(all_students, all_courses);
                 break;
             case 9: {
                 //Register student in course
@@ -169,7 +167,7 @@ void stud_loop() {
 }
 
 //;///////////////////////////////////////////////////////////////////////////////////////////////
-void course_loop() {
+void course_loop(vector<Student>& all_students, vector<Course>& all_courses) {
      int selection=-1;
      while (selection != 0) {
          courseManag_menue();
@@ -187,9 +185,11 @@ void course_loop() {
 
                  else cout << red << "Error: Course not found!\n" << RESET;
              }
-             break;
-             case 3:
-                 printCourseReport(all_courses, all_students);
+                 break;
+             case 3:{
+                 string id=  getStringInput("Enter Course ID: ");
+                 printCourseReport(all_courses, all_students,id);
+             }
                  break;
              case 4:
                  //view all courses
@@ -205,7 +205,7 @@ void course_loop() {
                  break;
              case 7:
                  //export course csv
-                 isCourseFound();
+                 isCourseFound(all_students, all_courses);
                  break;
              case 8:
                  findCourse_by_id_or_tit(all_students, all_courses);
@@ -218,18 +218,18 @@ void course_loop() {
      }
 }
 //=========================================================================================================
-void run_menuLoop() {
+void run_menuLoop(vector<Student>& all_students, vector<Course>& all_courses) {
     int choice=-1;
     while (choice != 0) {
         main_menue();
         choice=getIntInput("Enter your choice : ");
         if (choice == 1){
             activityLog("Admin Entered STUDENTS MANAGEMENT");
-            stud_loop();}
+            stud_loop(all_students, all_courses);}
 
         else if (choice==2){
             activityLog("Admin Entered COURSES MANAGEMENT");
-           course_loop();}
+           course_loop(all_students, all_courses);}
         else if (choice==3) {
             activityLog("Admin Viewed Activity Log");
             ViewActivityLog( "system_tracker.log");
@@ -250,9 +250,12 @@ int main() {
     SetConsoleMode(hOut, dwMode);
 #endif
 
+    vector<Student> all_students ;
+    vector<Course> all_courses;
+
     try {
         loadDatabase(all_students,all_courses,"cms_db.txt");
-        run_menuLoop();
+        run_menuLoop(all_students,all_courses);
         saveDatabase(all_students,all_courses,"cms_db.txt");
     }
      catch (const exception& e) {
