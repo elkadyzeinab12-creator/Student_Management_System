@@ -18,8 +18,6 @@ void saveDatabase(const std::vector<Student>& students,
         if (!saveDatabase)
             throw runtime_error("Could not open file for saving new data");
 
-        if (saveDatabase.is_open()) {
-
             saveDatabase << students.size() << endl;
 
             for ( int i = 0 ; i <students.size(); i++ ) {
@@ -46,10 +44,11 @@ void saveDatabase(const std::vector<Student>& students,
                 }
 
             }
+            saveDatabase.flush();
             saveDatabase.close();
             cout<<GREEN<<"New data saved SUCCESSFULLY\n";
             activityLog("new data was saved");
-        }
+
 
     }
 //====================================================================================================
@@ -61,8 +60,6 @@ void loadDatabase(std::vector<Student>& students,
     data_base.open(filename,ios::in);//read
     if (!data_base)
         throw runtime_error("File not found!");
-
-    if (data_base.is_open()) {
 
         int students_number;
         data_base>>students_number;
@@ -105,8 +102,8 @@ void loadDatabase(std::vector<Student>& students,
             // data_base.ignore();
            courses.push_back(course_code);
         }
+        data_base.flush();
         data_base.close();
-    }
 
 }
 //=============================================================================================================
@@ -117,7 +114,7 @@ void exportCourseCSV(Course* course, std::vector<Student>& students) {
      ofstream file(filename);
     if (!file)
         throw runtime_error("Couldn't Export CSV report for course: " + course->id);
-    if (file.is_open()) {
+
         file << "Course ID, " << course->id<<"\n";
         file << "Course Title, " << course->title<<"\n";
         file << "__________________________________________________________________________________\n";
@@ -154,7 +151,6 @@ file<<"\n";
         file.flush();
         file.close();
         activityLog("Exported CSV report for course: " + course->id);
-    }
 }
 //=======================================================================================================
 //Export Student Report CSV
@@ -163,7 +159,7 @@ void exportStudentsCSV(Student* student , std::vector<Course>& courses ) {
     ofstream file(filename);
     if (!file)
         throw runtime_error("Couldn't Export CSV report for Student: " + student->id);
-    if (file.is_open()) {
+
         file << " Student Name, " << student->name<<"\n";
         file << " ID, " <<"'"<< student->id<<"\n";
         file << " Academic Year, "<<student->year<<"\n";
@@ -185,7 +181,7 @@ void exportStudentsCSV(Student* student , std::vector<Course>& courses ) {
         file.flush();
         file.close();
         activityLog("Exported CSV report for student: " + student->id);
-    }
+
 }
 //========================================================================================================
 
@@ -195,7 +191,7 @@ void activityLog(const string& message) {
 
     if (!activityLog)
         throw runtime_error("could not open file system tracker.log");
-    if (activityLog.is_open()) {
+
         time_t now = time(nullptr);
         char* dt = ctime(&now);
         string timeStr(dt);
@@ -203,7 +199,6 @@ void activityLog(const string& message) {
         activityLog << "[" << timeStr << "] " << message <<endl;
         activityLog.flush();
         activityLog.close();
-    }
 
 }
 //;/////////////////////////////////////////////////////////////////////////////////////
@@ -213,7 +208,7 @@ void ViewActivityLog(const std::string& fileName) {
     activityLog.open("system_tracker.log", ios::in);//WRITE
     if (! activityLog.is_open())
         throw runtime_error("could not open file system tracker.log");
-    if (activityLog.is_open()) {
+
         cout <<MAGENTA<< "---------------------------------------------------------------\n";
         cout << "                System Activity Log       "<< endl;
         cout << "---------------------------------------------------------------\n"<<RESET;
@@ -223,5 +218,5 @@ void ViewActivityLog(const std::string& fileName) {
         }
         activityLog.close();
         cout<<MAGENTA<<"---------------------------------------------------------------\n";
-    }
+
 }

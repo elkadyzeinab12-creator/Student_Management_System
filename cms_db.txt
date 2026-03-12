@@ -1,4 +1,4 @@
-20
+24
 30101011234567
 Ahmed Hassan
 1
@@ -125,7 +125,27 @@ Ali salama
 7
 1
 AI301
-9
+89345612907856
+amir rabee3
+7
+1
+AI301
+23452189745678
+doaa ahmed monir
+4
+1
+CS102
+67452312899078
+hjk
+7
+1
+PHY101
+78899078899078
+pk
+1
+1
+ENG101
+12
 CS101
 Intro to Computer Science
 3
@@ -204,5 +224,17 @@ Artificial Intelligence
 30312122345678 85
 KP78
 How to tehped sah?
+4
+0
+cs101
+vscode
+4
+0
+fg
+nm
+3
+0
+yu
+jk jk jk
 4
 0

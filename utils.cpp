@@ -48,13 +48,17 @@ std::string getStringInput(const std::string& prompt) {
     string value;
     while (true) {
         cout << prompt;
-        if (cin >> value) {
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        // if (cin >> value) {
+        //     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        //     return value;
+        // }
+        if (std::getline(std::cin >> std::ws, value)) {
             return value;
         }
-        cout<<red<<"Invalid input, please try Enter a valid input\n"<<RESET;
-        cin.clear();
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        return "";
+        // cout<<red<<"Invalid input, please try Enter a valid input\n"<<RESET;
+        // cin.clear();
+        // cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 }
 char getCharInput(const std::string& prompt) {

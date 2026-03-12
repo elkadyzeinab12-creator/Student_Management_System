@@ -105,10 +105,12 @@ void stud_loop(vector<Student>& all_students, vector<Course>& all_courses) {
             case 1:
                 //add student
                 addStudent(all_courses, all_students);
+                saveDatabase(all_students,all_courses,"cms_db.txt");
                 break;
             case 2:
                 //delete student
                 deleteStudent(all_students, all_courses);
+                saveDatabase(all_students,all_courses,"cms_db.txt");
                 break;
             case 3: {
                 //  search student by id
@@ -131,10 +133,12 @@ void stud_loop(vector<Student>& all_students, vector<Course>& all_courses) {
             case 6:
                 //edit student data
                 editStudent(all_students);
+                saveDatabase(all_students,all_courses,"cms_db.txt");
                 break;
             case 7:
                 //record student to course
                 recordGrade(all_courses, all_students);
+                saveDatabase(all_students,all_courses,"cms_db.txt");
                 break;
             case 8:
                 //export student csv
@@ -156,6 +160,7 @@ void stud_loop(vector<Student>& all_students, vector<Course>& all_courses) {
                     if (cPtr == nullptr)
                         cout << red << "Error: Course ID (" << Course_ID << ") not found!" << RESET << '\n';
                 }
+                saveDatabase(all_students,all_courses,"cms_db.txt");
                 break;
             }
             case 0:
@@ -176,6 +181,7 @@ void course_loop(vector<Student>& all_students, vector<Course>& all_courses) {
              case 1:
                  // add course
                  addCourse(all_courses);
+                 saveDatabase(all_students,all_courses,"cms_db.txt");
                  break;
              case 2: {
                  // search course data
@@ -187,6 +193,7 @@ void course_loop(vector<Student>& all_students, vector<Course>& all_courses) {
              }
                  break;
              case 3:{
+                 //View Course Report
                  string id=  getStringInput("Enter Course ID: ");
                  printCourseReport(all_courses, all_students,id);
              }
@@ -198,10 +205,12 @@ void course_loop(vector<Student>& all_students, vector<Course>& all_courses) {
              case 5:
                  // Edit course data
                  editCourse(all_courses);
+                 saveDatabase(all_students,all_courses,"cms_db.txt");
                  break;
              case 6:
                  //delete course
                  deleteCourse(all_courses, all_students);
+                 saveDatabase(all_students,all_courses,"cms_db.txt");
                  break;
              case 7:
                  //export course csv
